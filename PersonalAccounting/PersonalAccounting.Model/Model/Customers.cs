@@ -14,10 +14,19 @@ namespace PersonalAccounting.Model.Model
     
     public partial class Customers
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Customers()
+        {
+            this.Transactions = new HashSet<Transactions>();
+        }
+    
         public int CustomerID { get; set; }
         public string FullName { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transactions> Transactions { get; set; }
     }
 }

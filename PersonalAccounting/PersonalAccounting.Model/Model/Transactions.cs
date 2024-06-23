@@ -22,5 +22,6 @@ namespace PersonalAccounting.Model.Model
         public System.DateTime Date { get; set; }
     
         public virtual AccountingTypes AccountingTypes { get; set; }
+        public virtual Customers Customers { get; set; }
     }
 }
