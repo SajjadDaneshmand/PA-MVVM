@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PersonalAccounting.Model.Repositories
 {
-    internal interface IUser
+    public interface IUserRepository
     {
         bool InsertUser(User user);
         bool UpdateUser(User user);
