@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccounting.ViewMode
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccounting.Model", "PersonalAccounting.Model\PersonalAccounting.Model.csproj", "{DB5BDCF3-9130-4E30-848B-0B8CE3052317}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{622AD605-4C47-4970-9B9D-16F172109256}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DB5BDCF3-9130-4E30-848B-0B8CE3052317}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB5BDCF3-9130-4E30-848B-0B8CE3052317}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB5BDCF3-9130-4E30-848B-0B8CE3052317}.Release|Any CPU.Build.0 = Release|Any CPU
+		{622AD605-4C47-4970-9B9D-16F172109256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{622AD605-4C47-4970-9B9D-16F172109256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{622AD605-4C47-4970-9B9D-16F172109256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{622AD605-4C47-4970-9B9D-16F172109256}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
