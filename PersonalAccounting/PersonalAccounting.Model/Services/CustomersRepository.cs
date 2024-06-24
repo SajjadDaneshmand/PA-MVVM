@@ -1,10 +1,9 @@
 ﻿using PersonalAccounting.Model.Model;
 using PersonalAccounting.Model.Repositories;
-using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PersonalAccounting.Model.Services
 {
@@ -19,37 +18,66 @@ namespace PersonalAccounting.Model.Services
 
         public bool DeleteCustomer(Customers customer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Entry(customer).State = EntityState.Deleted;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool DeleteCustomer(int customerId)
         {
-            throw new NotImplementedException();
+            Customers customer = GetCustomerById(customerId);
+            try
+            {
+                _db.Entry(customer).State = EntityState.Deleted;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public List<Customers> GetAllCustomers()
         {
-            throw new NotImplementedException();
+            return _db.Customers.ToList();
         }
 
         public Customers GetCustomerById(int customerId)
         {
-            throw new NotImplementedException();
+            return _db.Customers.Find(customerId);
         }
 
         public bool InsertCustomer(Customers customer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Customers.Add(customer);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
 
         public bool UpdateCustomer(Customers customer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Entry(customer).State = EntityState.Modified;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

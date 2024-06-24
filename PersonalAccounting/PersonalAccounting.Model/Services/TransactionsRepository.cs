@@ -1,10 +1,9 @@
 ﻿using PersonalAccounting.Model.Model;
 using PersonalAccounting.Model.Repositories;
-using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static PersonalAccounting.Model.Utilities.Constants;
 
 namespace PersonalAccounting.Model.Services
 {
@@ -19,42 +18,87 @@ namespace PersonalAccounting.Model.Services
 
         public bool DeleteTransaction(Transactions transaction)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Entry(transaction).State = EntityState.Deleted;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool DeleteTransaction(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Transactions transaction = GetTransactionById(id);
+                _db.Entry(transaction).State = EntityState.Deleted;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public List<Transactions> GetAllTransactions()
         {
-            throw new NotImplementedException();
+            return _db.Transactions.ToList();
         }
 
-        public Transactions GetLargestTransaction()
+        public List<Transactions> GetLargestPaymentTransactions()
         {
-            throw new NotImplementedException();
+            var paymentTransactions = GetTransactionsByType(PAYMENT_TYPE);
+            var maxAmount = paymentTransactions.Max(t => t.Amount);
+
+            return paymentTransactions.Where(t => t.Amount == maxAmount).ToList();
+        }
+
+        public List<Transactions> GetLargestReceiveTransactions()
+        {
+            var receiveTransactions = GetTransactionsByType(RECEIVE_TYPE);
+            var maxAmount = receiveTransactions.Max(t => t.Amount);
+
+            return receiveTransactions.Where(t => t.Amount == maxAmount).ToList();
+        }
+
+
+        public Transactions GetTransactionById(int id)
+        {
+            return _db.Transactions.Find(id);
         }
 
         public List<Transactions> GetTransactionsByType(int type)
         {
-            throw new NotImplementedException();
+            return _db.Transactions.Where(t => t.TrType == type).ToList();
         }
 
         public bool InsertTransaction(Transactions transaction)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Transactions.Add(transaction);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool UpdateTransaction(Transactions transaction)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Entry(transaction).State = EntityState.Modified;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

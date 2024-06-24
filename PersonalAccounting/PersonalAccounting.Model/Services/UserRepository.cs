@@ -1,10 +1,7 @@
 ﻿using PersonalAccounting.Model.Model;
 using PersonalAccounting.Model.Repositories;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace PersonalAccounting.Model.Services
 {
@@ -19,27 +16,51 @@ namespace PersonalAccounting.Model.Services
 
         public bool DeleteUser(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Entry(user).State = EntityState.Deleted;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public string GetPassword()
         {
-            throw new NotImplementedException();
+            return _db.User.Select(u => u.Password).FirstOrDefault();
         }
 
         public bool InsertUser(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.User.Add(user);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Entry(user).State = EntityState.Modified;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool UserExist()
         {
-            throw new NotImplementedException();
+            return _db.User.Any();
         }
     }
 }
