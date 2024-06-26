@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PersonalAccounting.ViewModel.ViewModels
 {
-    internal interface IBaseViewModel
+    public interface IBaseViewModel
     {
         event PropertyChangedEventHandler PropertyChanged;
     }
