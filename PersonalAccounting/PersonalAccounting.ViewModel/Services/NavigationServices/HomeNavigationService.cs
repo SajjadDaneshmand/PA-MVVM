@@ -1,6 +1,7 @@
 ﻿using PersonalAccounting.ViewModel.Services.NavigationInterfaces;
 using PersonalAccounting.ViewModel.Stores;
 using PersonalAccounting.ViewModel.ViewModels;
+using PersonalAccounting.ViewModel.ViewModels.IViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +12,18 @@ namespace PersonalAccounting.ViewModel.Services.NavigationServices
 {
     public class HomeNavigationService : IHomeNavigationService
     {
-        IBaseViewModel _targetViewModel;
-        INavigationStore _navigationStore;
+        private readonly IHomeViewModel _homeViewModel;
+        private readonly INavigationStore _navigationStore;
 
-        public HomeNavigationService(IBaseViewModel targetViewModel, INavigationStore navigationStore)
+        public HomeNavigationService(IHomeViewModel homeViewModel, INavigationStore navigationStore)
         {
-            _targetViewModel = targetViewModel;
+            _homeViewModel = homeViewModel;
             _navigationStore = navigationStore;
         }
 
         public void Navigate()
         {
-            _navigationStore.CurrentViewModel = _targetViewModel;
+            _navigationStore.CurrentViewModel = _homeViewModel;
         }
     }
 }
