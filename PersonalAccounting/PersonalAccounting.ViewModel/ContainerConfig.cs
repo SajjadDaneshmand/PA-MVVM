@@ -29,6 +29,7 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<TransactionsViewModel>().As<ITransactionsViewModel>().SingleInstance();
             builder.RegisterType<ReportsViewModel>().As<IReportsViewModel>().SingleInstance();
             builder.RegisterType<SettingsViewModel>().As<ISettingsViewModel>().SingleInstance();
+            builder.RegisterType<NewPersonViewModel>().As<INewPersonViewModel>().SingleInstance();
 
             // Register Commands
             builder.RegisterType<NavigateToHomeCommand>().As<INavigateToHomeCommand>().SingleInstance();
@@ -36,6 +37,7 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<NavigateToTransactionsCommand>().As<INavigateToTransactionsCommand>().SingleInstance();
             builder.RegisterType<NavigateToReportsCommand>().As<INavigateToReportsCommnad>().SingleInstance();
             builder.RegisterType<NavigateToSettingsCommand>().As<INavigateToSettingsCommand>().SingleInstance();
+            builder.RegisterType<NavigateToNewPersonCommand>().As<INavigateToNewPersonCommand>().SingleInstance();
             builder.RegisterType<TestCommand>().As<ITestCommand>().SingleInstance();
 
             // Register Services
@@ -45,6 +47,7 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<TransactionsNavigationService>().As<ITransactionsNavigationService>().SingleInstance();
             builder.RegisterType<ReportsNavigationService>().As<IReportsNavigationService>().SingleInstance();
             builder.RegisterType<SettingsNavigationService>().As<ISettingsNavigationService>().SingleInstance();
+            builder.RegisterType<NewPersonNavigationService>().As<INewPersonNavigationService>().SingleInstance();
 
             // Register Stores
             builder.RegisterType<NavigationStore>().As<INavigationStore>().SingleInstance();
