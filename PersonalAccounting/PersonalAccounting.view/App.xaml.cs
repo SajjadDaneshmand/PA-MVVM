@@ -1,11 +1,12 @@
-﻿using PersonalAccounting.ViewModel.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Autofac; 
+using PersonalAccounting.ViewModel.ViewModels;
+using PersonalAccounting.ViewModel.ViewModels.IViewModels;
+using PersonalAccounting.ViewModel.Stores;
+using PersonalAccounting.ViewModel;
+using PersonalAccounting.view.Views;
 using System.Windows;
+using PersonalAccounting.ViewModel.Services.NavigationInterfaces;
+
 
 namespace PersonalAccounting.view
 {
@@ -14,6 +15,31 @@ namespace PersonalAccounting.view
     /// </summary>
     public partial class App : Application
     {
-        BaseViewModel x = new BaseViewModel();
+        private readonly INavigationStore _navigationStore;
+        private readonly IContainer _container;
+
+        public App()
+        {
+            _container = ContainerConfig.Configure(null);
+            _navigationStore = _container.Resolve<INavigationStore>();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            // Resolve necessary view models from the container
+            var mainWindowViewModel = _container.Resolve<IMainWindowViewModel>();
+
+            MainWindow = new MainWindow
+            {
+                DataContext = mainWindowViewModel,
+            };
+
+            base.OnStartup(e);
+            MainWindow.Show();
+
+            var homeNavigationService = _container.Resolve<IHomeNavigationService>();
+            homeNavigationService.Navigate();
+
+        }
     }
 }
