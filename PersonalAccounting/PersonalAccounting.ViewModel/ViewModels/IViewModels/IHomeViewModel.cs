@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace PersonalAccounting.ViewModel.ViewModels.IViewModels
 {
-    public interface IHomeViewModel
+    public interface IHomeViewModel: IBaseViewModel
     {
+
     }
 }
