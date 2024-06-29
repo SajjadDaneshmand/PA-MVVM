@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PersonalAccounting.ViewModel.ViewModels
 {
-    public class BaseViewModel : IBaseViewModel
+    public class BaseViewModel : IBaseViewModel, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -19,7 +19,9 @@ namespace PersonalAccounting.ViewModel.ViewModels
 
         protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            if (EqualityComparer<T>.Default.Equals(field, value))
+                return false;
+
             field = value;
             OnPropertyChanged(propertyName);
             return true;
