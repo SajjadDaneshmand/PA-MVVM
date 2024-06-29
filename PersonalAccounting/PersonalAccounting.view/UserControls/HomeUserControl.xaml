@@ -151,7 +151,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label FontSize="12">
-                                بیشترین پرداخت به:
+                                بیشترین پرداختی به:
                             </Label>
                             <Label Content="test"/>
                         </StackPanel>
