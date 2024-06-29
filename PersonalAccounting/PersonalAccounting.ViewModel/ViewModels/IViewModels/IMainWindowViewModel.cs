@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace PersonalAccounting.ViewModel.ViewModels.IViewModels
 {
-    internal interface IMainWindowViewModel
+    public interface IMainWindowViewModel
     {
+        IBaseViewModel CurrentViewModel { get; }
     }
 }
