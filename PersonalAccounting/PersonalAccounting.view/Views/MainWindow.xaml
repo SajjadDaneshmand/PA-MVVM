@@ -10,10 +10,10 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         WindowStartupLocation="CenterScreen"
-        Title="PA"
+        Title="Personal Accounting"
         FontFamily="../Resources/Fonts/#IRANSansX"
         mc:Ignorable="d"
-        Height="600"
+        Height="450"
         Width="800">
 
     <Window.Resources>
