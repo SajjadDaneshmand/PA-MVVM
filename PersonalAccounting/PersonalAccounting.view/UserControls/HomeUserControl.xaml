@@ -7,9 +7,158 @@
              xmlns:viewModels="clr-namespace:PersonalAccounting.ViewModel.ViewModels.ViewModels;assembly=PersonalAccounting.ViewModel"
              d:DataContext="{d:DesignInstance Type=viewModels:HomeViewModel}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             FontFamily="../Resources/Fonts/#IRANSansX"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/BaseStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--Define the custom style for the GroupBox-->
+            <Style x:Key="RoundedGroupBox" TargetType="GroupBox">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GroupBox">
+                            <Grid>
+                                <Border 
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <ContentPresenter Grid.Row="1" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}"/>
+                                    </Grid>
+                                </Border>
+                                <TextBlock 
+                            Text="{TemplateBinding Header}" 
+                            Foreground="{TemplateBinding Foreground}" 
+                            Background="{TemplateBinding Background}"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Padding="5,0,5,0"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Color x:Key="PrimaryColor">#092635</Color>
+            <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource PrimaryColor}" />
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
-        <Button Margin="100" Content="Hello World" Command="{Binding TestCommand}" Background="Black"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid 
+            Grid.Row="0"
+            Margin="0, 20, 20, 0">
+            <!--Today date and time should be here-->
+            <StackPanel
+                Orientation="Horizontal" 
+                FlowDirection="RightToLeft">
+                <Label FontSize="25" Content="تاریخ امروز:"/>
+                <Label FontSize="25" Content="1403/02/08"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1"
+              FlowDirection="RightToLeft"
+              Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <GroupBox 
+                Grid.Column="0"
+                Margin="0, 0, 5, 0"
+                Padding="20"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Style="{StaticResource RoundedGroupBox}">
+                <!--Receive should be here-->
+                <StackPanel 
+                    FlowDirection="RightToLeft">
+                    <TextBlock
+                        Margin="0, 0, 0, 10"
+                        FontSize="16">
+                    دریافتی های این ماه
+                    </TextBlock>
+                    <StackPanel
+                        FlowDirection="RightToLeft"
+                        VerticalAlignment="Top"
+                        Margin="10, 0, 0, 0">
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontSize="12">
+                                جمع دریافتی:
+                            </Label>
+                            <Label Content="test"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontSize="12">
+                                بیشترین دریافتی:
+                            </Label>
+                            <Label Content="test"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontSize="12">
+                                بیشترین دریافتی از:
+                            </Label>
+                            <Label Content="test"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox 
+                Grid.Column="1"
+                Padding="20"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="5, 0, 0, 0"
+                Style="{StaticResource RoundedGroupBox}">
+                <!--Payment should be here-->
+                <StackPanel 
+                    FlowDirection="RightToLeft">
+                    <TextBlock
+                        Margin="0, 0, 0, 10"
+                        FontSize="16">
+                    پرداختی های این ماه
+                    </TextBlock>
+                    <StackPanel
+                        FlowDirection="RightToLeft"
+                        VerticalAlignment="Top"
+                        Margin="10, 0, 0, 0">
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontSize="12">
+                                جمع پرداختی:
+                            </Label>
+                            <Label Content="test"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontSize="12">
+                                بیشترین پرداختی:
+                            </Label>
+                            <Label Content="test"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontSize="12">
+                                بیشترین پرداخت به:
+                            </Label>
+                            <Label Content="test"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
     </Grid>
 </UserControl>
