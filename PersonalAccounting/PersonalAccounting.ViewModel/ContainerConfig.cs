@@ -30,6 +30,7 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<ReportsViewModel>().As<IReportsViewModel>().SingleInstance();
             builder.RegisterType<SettingsViewModel>().As<ISettingsViewModel>().SingleInstance();
             builder.RegisterType<NewPersonViewModel>().As<INewPersonViewModel>().SingleInstance();
+            builder.RegisterType<PersonsListViewModel>().As<IPersonsListViewModel>().SingleInstance();
 
             // Register Commands
             builder.RegisterType<NavigateToHomeCommand>().As<INavigateToHomeCommand>().SingleInstance();
@@ -38,6 +39,7 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<NavigateToReportsCommand>().As<INavigateToReportsCommnad>().SingleInstance();
             builder.RegisterType<NavigateToSettingsCommand>().As<INavigateToSettingsCommand>().SingleInstance();
             builder.RegisterType<NavigateToNewPersonCommand>().As<INavigateToNewPersonCommand>().SingleInstance();
+            builder.RegisterType<NavigateToPersonsListCommand>().As<INavigateToPersonsListCommand>().SingleInstance();
             builder.RegisterType<TestCommand>().As<ITestCommand>().SingleInstance();
 
             // Register Services
@@ -48,9 +50,11 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<ReportsNavigationService>().As<IReportsNavigationService>().SingleInstance();
             builder.RegisterType<SettingsNavigationService>().As<ISettingsNavigationService>().SingleInstance();
             builder.RegisterType<NewPersonNavigationService>().As<INewPersonNavigationService>().SingleInstance();
+            builder.RegisterType<PersonsListNavigationService>().As<IPersonsListNavigationService>().SingleInstance();
 
             // Register Stores
             builder.RegisterType<NavigationStore>().As<INavigationStore>().SingleInstance();
+            builder.RegisterType<PersonsTabNavigationStore>().As<IPersonsTabNavigationStore>().SingleInstance();
 
             return builder.Build();
         }
