@@ -13,7 +13,7 @@
     <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="5"/>
         <Setter Property="BorderBrush" Value="{x:Null}"/>
-        <Setter Property="Background" Value="#092635"/>
+        <Setter Property="Background" Value="#00ADB5"/>
         <Setter Property="Width" Value="250"/>
         <Setter Property="Height" Value="42"/>
         <Setter Property="Margin" Value="0 10 0 0"/>
@@ -38,6 +38,39 @@
         <Setter Property="Height" Value="50"/>
         <Setter Property="Margin" Value="10"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Define the custom style for the GroupBox -->
+    <Style x:Key="RoundedGroupBox" TargetType="GroupBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupBox">
+                    <Grid>
+                        <Border 
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <ContentPresenter Grid.Row="1" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}"/>
+                            </Grid>
+                        </Border>
+                        <TextBlock 
+                            Text="{TemplateBinding Header}" 
+                            Foreground="{TemplateBinding Foreground}" 
+                            Background="{TemplateBinding Background}"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Padding="5,0,5,0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>
