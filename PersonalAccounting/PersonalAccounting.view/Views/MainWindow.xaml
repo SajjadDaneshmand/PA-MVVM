@@ -13,11 +13,13 @@
         Title="Personal Accounting"
         FontFamily="../Resources/Fonts/#IRANSansX"
         mc:Ignorable="d"
-        Height="450"
-        Width="800">
+        MinWidth="907"
+        MinHeight="500"
+        Height="500"
+        Width="907">
 
     <Window.Resources>
-        <Color x:Key="PrimaryColor">#092635</Color>
+        <Color x:Key="PrimaryColor">#222831</Color>
         <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource PrimaryColor}"/>
 
         <Style TargetType="Label">
