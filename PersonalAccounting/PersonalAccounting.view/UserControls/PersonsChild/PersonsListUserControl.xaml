@@ -4,9 +4,119 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PersonalAccounting.view.UserControls.PersonsChild"
-             mc:Ignorable="d" 
+             xmlns:viewModels="clr-namespace:PersonalAccounting.ViewModel.ViewModels.ViewModels;assembly=PersonalAccounting.ViewModel"
+             d:DataContext="{d:DesignInstance Type=viewModels:PersonsListViewModel}"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Button Content="Persons List" Background="Blue"/>
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Styles/BaseStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid Margin="5" FlowDirection="RightToLeft">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel
+            FlowDirection="RightToLeft"
+            Orientation="Horizontal"
+            Grid.Row="0">
+
+            <TextBox
+                materialDesign:TextFieldAssist.TrailingIcon="Search"
+                materialDesign:HintAssist.Hint="جست و جو"
+                MaxLength="50"
+                Text="{Binding SearchBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction Command="{Binding FilterPersonsListCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+
+        </StackPanel>
+        <Grid
+            Margin="10"
+            FlowDirection="RightToLeft"
+            Grid.Row="1">
+            <DataGrid
+                FlowDirection="RightToLeft"
+                Padding="10"
+                AutoGenerateColumns="False"
+                HorizontalAlignment="Stretch"
+                ItemsSource="{Binding PersonsCollection}">
+                <DataGridTextColumn
+                    Header="ID"
+                    Visibility="Hidden"
+                    Binding="{Binding CustomerId}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn
+                    Header="نام و نام خانوادگی"
+                    Binding="{Binding FullName}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn
+                    Header="شماره تلفن"
+                    Binding="{Binding PhoneNumber}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn
+                    Header="ایمیل"
+                    Binding="{Binding Email}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn
+                    Header="آدرس"
+                    Binding="{Binding Address}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid>
+        </Grid>
+        <StackPanel
+            Margin="10"
+            Width="Auto"
+            FlowDirection="RightToLeft"
+            Orientation="Horizontal"
+            Grid.Row="2">
+            <Button
+                Content="ویرایش"
+                Margin="0, 0, 5, 0"/>
+            <Button
+                Content="حذف"
+                Margin="5, 0, 5, 0"/>
+            <Button
+                Content="تازه سازی"
+                Margin="5, 0, 0, 0"/>
+        </StackPanel>
     </Grid>
 </UserControl>
