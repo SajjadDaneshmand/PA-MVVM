@@ -159,6 +159,7 @@
     <Compile Include="UserControls\TransactionsUserControl.xaml.cs">
       <DependentUpon>TransactionsUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\NativeMethods.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
