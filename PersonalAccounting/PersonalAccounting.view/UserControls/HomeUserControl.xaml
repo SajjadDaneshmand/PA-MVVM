@@ -16,38 +16,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/BaseStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <!--Define the custom style for the GroupBox-->
-            <Style x:Key="RoundedGroupBox" TargetType="GroupBox">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="GroupBox">
-                            <Grid>
-                                <Border 
-                            Background="{TemplateBinding Background}" 
-                            BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" 
-                            CornerRadius="10">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <ContentPresenter Grid.Row="1" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}"/>
-                                    </Grid>
-                                </Border>
-                                <TextBlock 
-                            Text="{TemplateBinding Header}" 
-                            Foreground="{TemplateBinding Foreground}" 
-                            Background="{TemplateBinding Background}"
-                            Margin="10,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Padding="5,0,5,0"/>
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+            
             <Color x:Key="PrimaryColor">#092635</Color>
             <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource PrimaryColor}" />
 
