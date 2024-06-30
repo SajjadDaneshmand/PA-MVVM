@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PersonalAccounting.ViewModel.ViewModels
+namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 {
-    public class NewPersonViewModel: BaseViewModel, INewPersonViewModel
+    public class NewPersonViewModel : BaseViewModel, INewPersonViewModel
     {
     }
 }
