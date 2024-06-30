@@ -15,13 +15,11 @@ namespace PersonalAccounting.view
     /// </summary>
     public partial class App : Application
     {
-        private readonly INavigationStore _navigationStore;
         private readonly IContainer _container;
 
         public App()
         {
             _container = ContainerConfig.Configure(null);
-            _navigationStore = _container.Resolve<INavigationStore>();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -39,6 +37,9 @@ namespace PersonalAccounting.view
 
             var homeNavigationService = _container.Resolve<IHomeNavigationService>();
             homeNavigationService.Navigate();
+
+            var personListNavigationService = _container.Resolve<IPersonsListNavigationService>();
+            personListNavigationService.Navigate();
 
         }
     }
