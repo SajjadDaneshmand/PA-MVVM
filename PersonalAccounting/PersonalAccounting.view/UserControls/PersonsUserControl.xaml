@@ -14,7 +14,7 @@
              d:DesignHeight="50" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <Color x:Key="PrimaryColor">#1B4242</Color>
+        <Color x:Key="PrimaryColor">#393E46</Color>
         <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource PrimaryColor}"/>
 
         <Style TargetType="Label">
