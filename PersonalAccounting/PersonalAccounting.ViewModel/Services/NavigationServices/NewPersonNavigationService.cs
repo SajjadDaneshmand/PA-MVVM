@@ -11,10 +11,10 @@ namespace PersonalAccounting.ViewModel.Services.NavigationServices
 {
     public class NewPersonNavigationService : INewPersonNavigationService
     {
-        private readonly INavigationStore _navigationStore;
+        private readonly IPersonsTabNavigationStore _navigationStore;
         private readonly INewPersonViewModel _newPersonViewModel;
 
-        public NewPersonNavigationService(INavigationStore navigationStore, INewPersonViewModel newPersonViewModel)
+        public NewPersonNavigationService(IPersonsTabNavigationStore navigationStore, INewPersonViewModel newPersonViewModel)
         {
             _navigationStore = navigationStore;
             _newPersonViewModel = newPersonViewModel;
