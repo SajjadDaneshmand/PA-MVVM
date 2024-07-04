@@ -31,6 +31,8 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<SettingsViewModel>().As<ISettingsViewModel>().SingleInstance();
             builder.RegisterType<NewPersonViewModel>().As<INewPersonViewModel>().SingleInstance();
             builder.RegisterType<PersonsListViewModel>().As<IPersonsListViewModel>().SingleInstance();
+            builder.RegisterType<NewTransactionViewModel>().As<INewTransactionViewModel>().SingleInstance();
+            builder.RegisterType<TransactionsListViewModel>().As<ITransactionsListViewModel>().SingleInstance();
 
             // Register Commands
             builder.RegisterType<NavigateToHomeCommand>().As<INavigateToHomeCommand>().SingleInstance();
@@ -40,6 +42,8 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<NavigateToSettingsCommand>().As<INavigateToSettingsCommand>().SingleInstance();
             builder.RegisterType<NavigateToNewPersonCommand>().As<INavigateToNewPersonCommand>().SingleInstance();
             builder.RegisterType<NavigateToPersonsListCommand>().As<INavigateToPersonsListCommand>().SingleInstance();
+            builder.RegisterType<NavigateToNewTransactionCommand>().As<INavigateToNewTransactionCommand>().SingleInstance();
+            builder.RegisterType<NavigateToTransactionsListCommand>().As<INavigateToTransactionsListCommand>().SingleInstance();
             builder.RegisterType<TestCommand>().As<ITestCommand>().SingleInstance();
 
             // Register Services
@@ -51,10 +55,13 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<SettingsNavigationService>().As<ISettingsNavigationService>().SingleInstance();
             builder.RegisterType<NewPersonNavigationService>().As<INewPersonNavigationService>().SingleInstance();
             builder.RegisterType<PersonsListNavigationService>().As<IPersonsListNavigationService>().SingleInstance();
+            builder.RegisterType<TransactionsListNavigationService>().As<ITransactionsListNavigationService>().SingleInstance();
+            builder.RegisterType<NewTransactionNavigationService>().As<INewTransactionNavigationService>().SingleInstance();
 
             // Register Stores
             builder.RegisterType<NavigationStore>().As<INavigationStore>().SingleInstance();
             builder.RegisterType<PersonsTabNavigationStore>().As<IPersonsTabNavigationStore>().SingleInstance();
+            builder.RegisterType<TransactionsTabNavigationStore>().As<ITransactionsTabNavigationStore>().SingleInstance();
 
             return builder.Build();
         }
