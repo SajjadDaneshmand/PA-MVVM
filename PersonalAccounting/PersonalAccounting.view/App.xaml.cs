@@ -41,6 +41,9 @@ namespace PersonalAccounting.view
             var personListNavigationService = _container.Resolve<IPersonsListNavigationService>();
             personListNavigationService.Navigate();
 
+            var transactionsListNavigationService = _container.Resolve<ITransactionsListNavigationService>();
+            transactionsListNavigationService.Navigate();
+
         }
     }
 }
