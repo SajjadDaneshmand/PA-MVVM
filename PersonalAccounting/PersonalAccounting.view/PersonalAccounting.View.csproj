@@ -126,6 +126,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\TransactionsChild\NewTransactionUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TransactionsChild\TransactionsListUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\TransactionsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -155,6 +163,12 @@
     </Compile>
     <Compile Include="UserControls\SettingsUserControl.xaml.cs">
       <DependentUpon>SettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TransactionsChild\NewTransactionUserControl.xaml.cs">
+      <DependentUpon>NewTransactionUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TransactionsChild\TransactionsListUserControl.xaml.cs">
+      <DependentUpon>TransactionsListUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TransactionsUserControl.xaml.cs">
       <DependentUpon>TransactionsUserControl.xaml</DependentUpon>
