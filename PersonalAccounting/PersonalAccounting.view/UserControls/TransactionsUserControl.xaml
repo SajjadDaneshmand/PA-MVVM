@@ -5,11 +5,71 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PersonalAccounting.view.UserControls"
              xmlns:viewModels="clr-namespace:PersonalAccounting.ViewModel.ViewModels.ViewModels;assembly=PersonalAccounting.ViewModel"
+             xmlns:transactionsChild="clr-namespace:PersonalAccounting.view.UserControls.TransactionsChild"
              d:DataContext="{d:DesignInstance Type=viewModels:TransactionsViewModel}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="50" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Color x:Key="PrimaryColor">#393E46</Color>
+        <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource PrimaryColor}"/>
+
+        <Style TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-        <Button Margin="100" Content="Hello World"/>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type viewModels:TransactionsListViewModel}">
+                <transactionsChild:TransactionsListUserControl/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:NewTransactionViewModel}">
+                <transactionsChild:NewTransactionUserControl/>
+            </DataTemplate>
+        </Grid.Resources>
+        <TabControl
+            FlowDirection="RightToLeft"
+            TabStripPlacement="Top"
+            materialDesign:ColorZoneAssist.Mode="PrimaryDark"
+            materialDesign:ColorZoneAssist.Background="{StaticResource PrimaryColorBrush}"
+            Style="{StaticResource MaterialDesignFilledTabControl}"
+            SelectedIndex="0">
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <TextBlock
+                            Foreground="White"
+                            Text="لیست تراکنشات"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseDown">
+                        <i:InvokeCommandAction Command="{Binding NavigateToTransactionsListCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ContentControl Content="{Binding CurrentViewModel}"/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <TextBlock
+                            Foreground="White"
+                            Text="ایجاد تراکنش"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseDown">
+                        <i:InvokeCommandAction Command="{Binding NavigateToNewTransactionCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ContentControl Content="{Binding CurrentViewModel}"/>
+            </TabItem>
+
+        </TabControl>
     </Grid>
 </UserControl>
