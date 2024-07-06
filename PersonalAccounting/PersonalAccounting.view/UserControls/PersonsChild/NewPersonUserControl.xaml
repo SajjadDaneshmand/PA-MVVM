@@ -20,8 +20,8 @@
     </UserControl.Resources>
 
     <GroupBox
+        Padding="20"
             FlowDirection="RightToLeft"
-            Padding="20"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             HorizontalContentAlignment="Center"
@@ -36,25 +36,38 @@
                 ایجاد شخص جدید
             </TextBlock>
             <StackPanel
-                    VerticalAlignment="Center">
+                Margin="10"
+                VerticalAlignment="Center">
                 <TextBox 
-                        materialDesign:TextFieldAssist.TrailingIcon="Person"
-                        materialDesign:HintAssist.Hint="نام شخص"
-                        Text="{Binding FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    Margin="0,0,0,10"
+                    Padding="5"
+                    MaxLength="50"
+                    materialDesign:TextFieldAssist.TrailingIcon="Person"
+                    materialDesign:HintAssist.Hint="نام شخص"
+                    Text="{Binding FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox 
-                        materialDesign:TextFieldAssist.TrailingIcon="Phone"
-                        materialDesign:HintAssist.Hint="شماره تلفن"
-                        Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    Margin="0,10,0,10"
+                    Padding="5"
+                    MaxLength="50"
+                    materialDesign:TextFieldAssist.TrailingIcon="Phone"
+                    materialDesign:HintAssist.Hint="شماره تلفن"
+                    Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox 
-                        materialDesign:TextFieldAssist.TrailingIcon="Email"
-                        materialDesign:HintAssist.Hint="ایمیل"
-                        Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    Margin="0,10,0,10"
+                    Padding="5"
+                    MaxLength="60"
+                    materialDesign:TextFieldAssist.TrailingIcon="Email"
+                    materialDesign:HintAssist.Hint="ایمیل"
+                    Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox
-                        
-                        materialDesign:TextFieldAssist.TrailingIcon="AddressMarker"
-                        materialDesign:HintAssist.Hint="آدرس"
-                        Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    Margin="0,10,0,10"
+                    Padding="5"
+                    MaxLength="300"
+                    materialDesign:TextFieldAssist.TrailingIcon="AddressMarker"
+                    materialDesign:HintAssist.Hint="آدرس"
+                    Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel
+                    Margin="0,20,0,5"
                     HorizontalAlignment="Center"
                     FlowDirection="RightToLeft"
                     Orientation="Horizontal">
