@@ -29,12 +29,15 @@
         <StackPanel
             FlowDirection="RightToLeft"
             Orientation="Horizontal"
+            Margin="10"
             Grid.Row="0">
 
             <TextBox
                 materialDesign:TextFieldAssist.TrailingIcon="Search"
                 materialDesign:HintAssist.Hint="جست و جو"
-                MaxLength="50"
+                Width="200"
+                Padding="5"
+                MaxLength="30"
                 Text="{Binding SearchBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="KeyUp">

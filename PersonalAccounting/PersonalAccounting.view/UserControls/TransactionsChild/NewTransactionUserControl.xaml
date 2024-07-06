@@ -4,9 +4,145 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PersonalAccounting.view.UserControls.TransactionsChild"
+             xmlns:viewModels="clr-namespace:PersonalAccounting.ViewModel.ViewModels.ViewModels;assembly=PersonalAccounting.ViewModel"
+             d:DataContext="{d:DesignInstance Type=viewModels:NewTransactionViewModel}"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Button Background="Red">Test</Button>  
-    </Grid>
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Styles/BaseStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--#region Radio Button Style-->
+            <Style x:Key="RadioButtonStyle" TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignAccentRadioButton}">
+                <Style.Triggers>
+                    <Trigger Property="ClickMode" Value="Release">
+                        <Setter Property="Background" Value="#00ADB5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <!--#endregion-->
+            
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <GroupBox
+            FlowDirection="RightToLeft"
+            Padding="20"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Style="{StaticResource RoundedGroupBox}">
+        <StackPanel
+            FlowDirection="RightToLeft">
+            <TextBlock 
+                FlowDirection="RightToLeft"
+                FontSize="14"
+
+                HorizontalAlignment="Left">
+                ایجاد تراکنش جدید
+            </TextBlock>
+            <StackPanel
+                Margin="10"
+                VerticalAlignment="Center">
+
+                <Grid Margin="0,10,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <RadioButton Grid.Column="0"
+                        Content="پرداخت"
+                        IsChecked="True"
+                        GroupName="TrType"
+                        Margin="0, 0, 0, 0"
+                        Style="{DynamicResource RadioButtonStyle}"/>
+                    <RadioButton 
+                        Grid.Column="1"
+                        Content="دریافت"
+                        GroupName="TrType"
+                        Style="{DynamicResource RadioButtonStyle}"/>
+                </Grid>
+
+                <ComboBox 
+                    SelectedItem="{Binding SelectedPerson, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SelectedIndex="{Binding SelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    ItemsSource="{Binding Path=Persons}"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    materialDesign:TextFieldAssist.TextFieldCornerRadius="5"
+                    materialDesign:TextFieldAssist.UnderlineBrush="#00ADB5"
+                    materialDesign:HintAssist.Foreground="#00ADB5"
+                    materialDesign:HintAssist.Hint="شخص"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingHintHorizontalAlignment="Inherit"
+                
+                    HorizontalContentAlignment="Left"
+                    Margin="0,10,0,5"
+                    Padding="5"
+                    Background="#EDEDEDED"
+                    FontSize="12"
+                    Height="42">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="10 0 0 0" Text="{Binding}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBox 
+                    Margin="0,5,0,10"
+                    MaxLength="13"
+                    materialDesign:TextFieldAssist.TrailingIcon="Dollar"
+                    materialDesign:HintAssist.Hint="مبلغ"
+                    Padding="5"
+                    Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox
+                    FlowDirection="RightToLeft"
+                    AcceptsReturn="True"
+                    VerticalScrollBarVisibility="Auto"
+                    MaxLength="800"
+                    Height="150"
+                    Margin="0,10,0,10"
+                    Padding="5"
+                    materialDesign:TextFieldAssist.TrailingIcon="Text"
+                    materialDesign:HintAssist.Hint="توضیحات"
+                    Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <StackPanel
+                    Margin="0,15,0,0"
+                    HorizontalAlignment="Center"
+                    FlowDirection="RightToLeft"
+                    Orientation="Horizontal">
+                    <Button
+                        Margin="0, 0, 5, 0"
+                        Width="120"
+                        materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding IsTaskInProgress, UpdateSourceTrigger=PropertyChanged}"
+                        Command="{Binding CreateCustomerCommand}">
+                        ایجاد
+                    </Button>
+                    <Button
+                        Margin="5, 0, 0, 0"
+                        Width="120"
+                        materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding IsTaskInProgress, UpdateSourceTrigger=PropertyChanged}"
+                        Command="{Binding CreateCustomerCommand}">
+                        ایجاد / جدید
+                    </Button>
+                </StackPanel>
+
+
+            </StackPanel>
+            <materialDesign:Snackbar
+                Margin="0 0 40 10"
+                Background="White"
+                Foreground="Black"
+                FlowDirection="RightToLeft"
+                IsActive="{Binding IsSnackbarActive}"
+                MessageQueue="{Binding MessageQueue}" />
+        </StackPanel>
+    </GroupBox>
 </UserControl>

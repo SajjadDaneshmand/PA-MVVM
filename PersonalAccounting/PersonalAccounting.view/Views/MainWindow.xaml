@@ -14,8 +14,8 @@
         FontFamily="../Resources/Fonts/#IRANSansX"
         mc:Ignorable="d"
         MinWidth="907"
-        MinHeight="550"
-        Height="550"
+        MinHeight="600"
+        Height="600"
         Width="907">
 
     <Window.Resources>
