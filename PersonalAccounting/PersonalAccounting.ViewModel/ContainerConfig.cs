@@ -46,7 +46,7 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<NavigateToTransactionsListCommand>().As<INavigateToTransactionsListCommand>().SingleInstance();
             builder.RegisterType<TestCommand>().As<ITestCommand>().SingleInstance();
 
-            // Register Services
+            // Register Navigation Services
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             builder.RegisterType<HomeNavigationService>().As<IHomeNavigationService>().SingleInstance();
             builder.RegisterType<PersonsNavigationService>().As<IPersonsNavigationService>().SingleInstance();
