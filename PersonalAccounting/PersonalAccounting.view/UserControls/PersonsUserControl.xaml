@@ -33,12 +33,12 @@
             </DataTemplate>
         </Grid.Resources>
         <TabControl
+            SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}"
             FlowDirection="RightToLeft"
             TabStripPlacement="Top"
             materialDesign:ColorZoneAssist.Mode="PrimaryDark"
             materialDesign:ColorZoneAssist.Background="{StaticResource PrimaryColorBrush}"
-            Style="{StaticResource MaterialDesignFilledTabControl}"
-            SelectedIndex="0">
+            Style="{StaticResource MaterialDesignFilledTabControl}">
 
             <TabItem>
                 <TabItem.Header>

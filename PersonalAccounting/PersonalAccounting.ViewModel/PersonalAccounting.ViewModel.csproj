@@ -68,6 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\Commands\CreateCustomerAndNavigateToPersonsListCommand.cs" />
+    <Compile Include="Commands\Commands\CreateCustomerCommand.cs" />
     <Compile Include="Commands\Commands\NavigateToHomeCommand.cs" />
     <Compile Include="Commands\Commands\NavigateToNewPersonCommand.cs" />
     <Compile Include="Commands\Commands\NavigateToNewTransactionCommand.cs" />
@@ -78,6 +80,8 @@
     <Compile Include="Commands\Commands\NavigateToTransactionsCommand.cs" />
     <Compile Include="Commands\Commands\NavigateToTransactionsListCommand.cs" />
     <Compile Include="Commands\Commands\TestCommand.cs" />
+    <Compile Include="Commands\ICommands\ICreateCustomerAndNavigateToPersonsListCommand.cs" />
+    <Compile Include="Commands\ICommands\ICreateCustomerCommand.cs" />
     <Compile Include="Commands\ICommands\INavigateToHomeCommand.cs" />
     <Compile Include="Commands\ICommands\INavigateToNewPersonCommand.cs" />
     <Compile Include="Commands\ICommands\INavigateToNewTransactionCommand.cs" />
@@ -116,6 +120,7 @@
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Stores\PersonsTabNavigationStore.cs" />
     <Compile Include="Stores\TransactionsTabNavigationStore.cs" />
+    <Compile Include="Utilities\Validators.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\IBaseViewModel.cs" />
     <Compile Include="ViewModels\IModels\IPersonModel.cs" />
@@ -149,9 +154,7 @@
       <Name>PersonalAccounting.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utilities\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

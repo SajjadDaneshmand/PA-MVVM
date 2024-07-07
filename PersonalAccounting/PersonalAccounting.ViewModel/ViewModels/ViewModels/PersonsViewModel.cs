@@ -33,9 +33,30 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
         private void OnCurrentViewModelChanged()
         {
             OnPropertyChanged(nameof(CurrentViewModel));
+            UpdateSelectedTabIndex();
         }
 
         public INavigateToNewPersonCommand NavigateToNewPersonCommand { get; }
         public INavigateToPersonsListCommand NavigateToPersonsListCommand { get; }
+
+        private int _selectedTabIndex;
+        public int SelectedTabIndex
+        {
+            get => _selectedTabIndex;
+            set
+            {
+                _selectedTabIndex = value;
+                OnPropertyChanged(nameof(SelectedTabIndex));
+            }
+        }
+
+        private void UpdateSelectedTabIndex()
+        {
+            // Update the SelectedTabIndex based on the current ViewModel
+            if (CurrentViewModel is IPersonsListViewModel)
+                SelectedTabIndex = 0;
+            else if (CurrentViewModel is INewPersonViewModel)
+                SelectedTabIndex = 1;
+        }
     }
 }

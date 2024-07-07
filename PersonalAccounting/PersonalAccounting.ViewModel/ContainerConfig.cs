@@ -12,6 +12,8 @@ using PersonalAccounting.ViewModel.Stores;
 using PersonalAccounting.ViewModel.Commands.Commands;
 using PersonalAccounting.ViewModel.Commands.ICommands;
 using System.Data.SqlClient;
+using PersonalAccounting.Model.Repositories;
+using PersonalAccounting.Model.Services;
 
 namespace PersonalAccounting.ViewModel
 {
@@ -44,7 +46,27 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<NavigateToPersonsListCommand>().As<INavigateToPersonsListCommand>().SingleInstance();
             builder.RegisterType<NavigateToNewTransactionCommand>().As<INavigateToNewTransactionCommand>().SingleInstance();
             builder.RegisterType<NavigateToTransactionsListCommand>().As<INavigateToTransactionsListCommand>().SingleInstance();
-            builder.RegisterType<TestCommand>().As<ITestCommand>().SingleInstance();
+            builder.RegisterType<CreateCustomerAndNavigateToPersonsListCommand>().As<ICreateCustomerAndNavigateToPersonsListCommand>().OnActivated(
+                e => 
+                {
+                    var currentViewModel = e.Context.Resolve<INewPersonViewModel>();
+                    var personsListNavigationService = e.Context.Resolve<IPersonsListNavigationService>();
+                    e.Instance.NewPersonViewModelInstance = currentViewModel;
+                    e.Instance.PersonsListNavigationService = personsListNavigationService;
+
+                    currentViewModel.PropertyChanged += e.Instance.OnViewModelPropertyChanged;
+
+                });
+            builder.RegisterType<CreateCustomerCommand>().As<ICreateCustomerCommand>().OnActivated(
+                e =>
+                {
+                    // We can perform any logic here.
+                    var currentViewModel = e.Context.Resolve<INewPersonViewModel>();
+                    e.Instance.NewPersonViewModelInstance = currentViewModel;
+
+                    currentViewModel.PropertyChanged += e.Instance.OnViewModelPropertyChanged;
+                }
+                );
 
             // Register Navigation Services
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
@@ -62,6 +84,10 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<NavigationStore>().As<INavigationStore>().SingleInstance();
             builder.RegisterType<PersonsTabNavigationStore>().As<IPersonsTabNavigationStore>().SingleInstance();
             builder.RegisterType<TransactionsTabNavigationStore>().As<ITransactionsTabNavigationStore>().SingleInstance();
+
+
+            // Register Model Repositories
+            builder.RegisterType<CustomersRepository>().As<ICustomersRepository>().SingleInstance();
 
             return builder.Build();
         }

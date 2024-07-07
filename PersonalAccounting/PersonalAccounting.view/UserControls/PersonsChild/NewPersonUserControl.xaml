@@ -48,7 +48,7 @@
                 <TextBox 
                     Margin="0,10,0,10"
                     Padding="5"
-                    MaxLength="50"
+                    MaxLength="15"
                     materialDesign:TextFieldAssist.TrailingIcon="Phone"
                     materialDesign:HintAssist.Hint="شماره تلفن"
                     Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -75,13 +75,7 @@
                         Margin="0, 0, 5, 0"
                         Width="120"
                         materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding IsTaskInProgress, UpdateSourceTrigger=PropertyChanged}"
-                        Command="{Binding CreateCustomerCommand}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewMouseDown">
-                                <i:InvokeCommandAction Command="{Binding CreateCustomerCommand}"/>
-                                <i:InvokeCommandAction Command="{Binding NavigateToPersonsList}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                        Command="{Binding CreateCustomerAndNavigateToPersonsListCommand}">
                         ایجاد
                     </Button>
                     <Button
