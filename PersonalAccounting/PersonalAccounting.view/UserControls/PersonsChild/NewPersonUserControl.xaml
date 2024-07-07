@@ -76,6 +76,12 @@
                         Width="120"
                         materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding IsTaskInProgress, UpdateSourceTrigger=PropertyChanged}"
                         Command="{Binding CreateCustomerCommand}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseDown">
+                                <i:InvokeCommandAction Command="{Binding CreateCustomerCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding NavigateToPersonsList}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         ایجاد
                     </Button>
                     <Button
@@ -91,7 +97,6 @@
             </StackPanel>
             <materialDesign:Snackbar
                 Margin="0 0 40 10"
-                Background="White"
                 Foreground="Black"
                 FlowDirection="RightToLeft"
                 IsActive="{Binding IsSnackbarActive}"
