@@ -118,6 +118,8 @@
     <Compile Include="Stores\TransactionsTabNavigationStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\IBaseViewModel.cs" />
+    <Compile Include="ViewModels\IModels\IPersonModel.cs" />
+    <Compile Include="ViewModels\IModels\ITransactionModel.cs" />
     <Compile Include="ViewModels\IViewModels\IHomeViewModel.cs" />
     <Compile Include="ViewModels\IViewModels\IMainWindowViewModel.cs" />
     <Compile Include="ViewModels\IViewModels\INewPersonViewModel.cs" />
@@ -128,6 +130,8 @@
     <Compile Include="ViewModels\IViewModels\ISettingsViewModel.cs" />
     <Compile Include="ViewModels\IViewModels\ITransactionsListViewModel.cs" />
     <Compile Include="ViewModels\IViewModels\ITransactionsViewModel.cs" />
+    <Compile Include="ViewModels\Models\PersonModel.cs" />
+    <Compile Include="ViewModels\Models\TransactionModel.cs" />
     <Compile Include="ViewModels\ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModels\NewPersonViewModel.cs" />
