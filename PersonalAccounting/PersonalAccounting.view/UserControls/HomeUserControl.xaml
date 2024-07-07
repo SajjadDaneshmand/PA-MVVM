@@ -7,7 +7,6 @@
              xmlns:viewModels="clr-namespace:PersonalAccounting.ViewModel.ViewModels.ViewModels;assembly=PersonalAccounting.ViewModel"
              d:DataContext="{d:DesignInstance Type=viewModels:HomeViewModel}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             FontFamily="../Resources/Fonts/#IRANSansX"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -31,12 +30,11 @@
         <Grid 
             Grid.Row="0"
             Margin="0, 20, 20, 0">
-            <!--Today date and time should be here-->
             <StackPanel
                 Orientation="Horizontal" 
                 FlowDirection="RightToLeft">
                 <Label FontSize="25" Content="تاریخ امروز:"/>
-                <Label FontSize="25" Content="1403/02/08"/>
+                <Label FontSize="25" FlowDirection="RightToLeft" Content="{Binding TodayDate}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1"
@@ -53,7 +51,6 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Style="{StaticResource RoundedGroupBox}">
-                <!--Receive should be here-->
                 <StackPanel 
                     FlowDirection="RightToLeft">
                     <TextBlock
@@ -94,7 +91,6 @@
                 VerticalContentAlignment="Center"
                 Margin="5, 0, 0, 0"
                 Style="{StaticResource RoundedGroupBox}">
-                <!--Payment should be here-->
                 <StackPanel 
                     FlowDirection="RightToLeft">
                     <TextBlock
