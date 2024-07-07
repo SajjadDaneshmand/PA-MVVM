@@ -1,4 +1,5 @@
 ﻿using PersonalAccounting.ViewModel.Commands.ICommands;
+using PersonalAccounting.ViewModel.Services;
 using PersonalAccounting.ViewModel.ViewModels.IViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,11 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 {
     public class HomeViewModel : BaseViewModel, IHomeViewModel
     {
-        public HomeViewModel(ITestCommand testCommand)
+        public HomeViewModel()
         {
-            TestCommand = testCommand;
         }
 
-        public ITestCommand TestCommand { get; }
+        public string TodayDate => DateTime.Today.ToString("yyyy/MM/dd");
 
     }
 }
