@@ -63,24 +63,24 @@
                 FlowDirection="RightToLeft">
                 از تاریخ:
             </TextBlock>
-            
+
             <DatePicker
                 Padding="20, 0, 0, 0"
                 Margin="10, 0, 10, 0"
                 Language="fa-IR"></DatePicker>
-            
+
             <TextBlock
                 Margin="10, 0, 10, 0"
                 VerticalAlignment="Center"
                 FlowDirection="RightToLeft">
                 تا تاریخ:
             </TextBlock>
-            
+
             <DatePicker
                 Padding="20, 0, 0, 0"
                 Margin="10, 0, 0, 0"
                 Language="fa-IR" ></DatePicker>
-            
+
         </StackPanel>
         <Grid
             Margin="10"
@@ -92,52 +92,54 @@
                 AutoGenerateColumns="False"
                 HorizontalAlignment="Stretch"
                 ItemsSource="{Binding TransactionsCollection}">
-                <DataGridTextColumn
+                <DataGrid.Columns>
+                    <DataGridTextColumn
                     Header="TransactionID"
                     Visibility="Hidden"
                     Binding="{Binding TransactionId}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
                     Header="طرف حساب"
                     Binding="{Binding FullName}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
                     Header="مبلغ"
                     Binding="{Binding Amount}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
                     Header="تاریخ"
                     Binding="{Binding TrDateTime}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
                     Header="توضیحات"
                     Binding="{Binding Description}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
             </DataGrid>
         </Grid>
         <StackPanel
