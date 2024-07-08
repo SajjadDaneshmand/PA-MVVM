@@ -1,15 +1,17 @@
 ﻿using PersonalAccounting.Model.Model;
 using PersonalAccounting.Model.Repositories;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 
 namespace PersonalAccounting.Model.Services
 {
     public class CustomersRepository : ICustomersRepository
     {
-        private Accounting_DBEntities _db;
+        private readonly Accounting_DBEntities _db;
 
         public CustomersRepository(Accounting_DBEntities db)
         {
@@ -43,9 +45,20 @@ namespace PersonalAccounting.Model.Services
             }
         }
 
-        public List<Customers> GetAllCustomers()
+        public ObservableCollection<Customers> GetAllCustomers()
         {
-            return _db.Customers.ToList();
+
+            List<Customers> customerList = _db.Customers.ToList();
+            return new ObservableCollection<Customers>(customerList);
+        }
+
+        public ObservableCollection<Customers> FilterCustomersByNameMobile(string text)
+        {
+            var filterPersons = _db.Customers.Where(
+                c =>
+                c.FullName.Contains(text) ||
+                c.Mobile.Contains(text)).ToList();
+            return new ObservableCollection<Customers>(filterPersons);
         }
 
         public Customers GetCustomerById(int customerId)
