@@ -14,6 +14,7 @@ using PersonalAccounting.ViewModel.Commands.ICommands;
 using System.Data.SqlClient;
 using PersonalAccounting.Model.Repositories;
 using PersonalAccounting.Model.Services;
+using PersonalAccounting.Model.Context;
 
 namespace PersonalAccounting.ViewModel
 {
@@ -32,7 +33,16 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<ReportsViewModel>().As<IReportsViewModel>().SingleInstance();
             builder.RegisterType<SettingsViewModel>().As<ISettingsViewModel>().SingleInstance();
             builder.RegisterType<NewPersonViewModel>().As<INewPersonViewModel>().SingleInstance();
-            builder.RegisterType<PersonsListViewModel>().As<IPersonsListViewModel>().SingleInstance();
+            builder.RegisterType<PersonsListViewModel>().As<IPersonsListViewModel>().OnActivated(
+                e =>
+                {
+                    using (var db = new UnitOfWork())
+                    {
+                        var persons = db.CustomersRepository.GetAllCustomers();
+                        e.Instance.PersonsCollection = persons;
+                    }
+                }
+                );
             builder.RegisterType<NewTransactionViewModel>().As<INewTransactionViewModel>().SingleInstance();
             builder.RegisterType<TransactionsListViewModel>().As<ITransactionsListViewModel>().SingleInstance();
 
