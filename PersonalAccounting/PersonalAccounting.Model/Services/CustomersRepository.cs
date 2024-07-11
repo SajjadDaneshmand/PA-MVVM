@@ -92,5 +92,24 @@ namespace PersonalAccounting.Model.Services
                 return false;
             }
         }
+
+        public ObservableCollection<PersonIdModel> GetFullNameId()
+        {
+            try
+            {
+                var nameId = _db.Customers.Select(
+                    c => new PersonIdModel()
+                    {
+                        Id = c.CustomerID,
+                        FullName = c.FullName
+                    }
+                    );
+                return new ObservableCollection<PersonIdModel>(nameId);
+            }
+            catch
+            {
+                return new ObservableCollection<PersonIdModel>();
+            }
+        }
     }
 }

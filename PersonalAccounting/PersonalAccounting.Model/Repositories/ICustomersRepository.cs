@@ -14,5 +14,6 @@ namespace PersonalAccounting.Model.Repositories
         bool UpdateCustomer(Customers customer);
         bool DeleteCustomer(Customers customer);
         bool DeleteCustomer(int customerId);
+        ObservableCollection<PersonIdModel> GetFullNameId();
     }
 }
