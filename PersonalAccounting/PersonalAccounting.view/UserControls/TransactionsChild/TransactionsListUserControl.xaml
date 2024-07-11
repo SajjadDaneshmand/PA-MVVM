@@ -7,6 +7,7 @@
              xmlns:viewModels="clr-namespace:PersonalAccounting.ViewModel.ViewModels.ViewModels;assembly=PersonalAccounting.ViewModel"
              d:DataContext="{d:DesignInstance Type=viewModels:TransactionsListViewModel}"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -34,7 +35,7 @@
             <ComboBox                
                 SelectedItem="{Binding SelectedPerson, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 SelectedIndex="{Binding SelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                ItemsSource="{Binding Path=Persons}"
+                ItemsSource="{Binding TransactionsCollection}"
                 materialDesign:TextFieldAssist.HasClearButton="True"
                 materialDesign:TextFieldAssist.TextFieldCornerRadius="5"
                 materialDesign:TextFieldAssist.UnderlineBrush="#00ADB5"
@@ -52,7 +53,7 @@
                 Height="42">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Margin="10 0 0 0" Text="{Binding}" />
+                        <TextBlock Margin="10 0 0 0" Text="{Binding FullName}" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -67,7 +68,8 @@
             <DatePicker
                 Padding="20, 0, 0, 0"
                 Margin="10, 0, 10, 0"
-                Language="fa-IR"></DatePicker>
+                Language="fa-IR"
+                SelectedDate="{Binding StartDate, Mode=OneWay}"></DatePicker>
 
             <TextBlock
                 Margin="10, 0, 10, 0"
@@ -79,7 +81,8 @@
             <DatePicker
                 Padding="20, 0, 0, 0"
                 Margin="10, 0, 0, 0"
-                Language="fa-IR" ></DatePicker>
+                Language="fa-IR"
+                SelectedDate="{x:Static sys:DateTime.Today}"></DatePicker>
 
         </StackPanel>
         <Grid
@@ -89,55 +92,60 @@
             <DataGrid
                 FlowDirection="RightToLeft"
                 Padding="10"
-                AutoGenerateColumns="False"
+                IsReadOnly="True"
                 HorizontalAlignment="Stretch"
-                ItemsSource="{Binding TransactionsCollection}">
+                SelectedItem="{Binding SelectedRow}"
+                materialDesign:DataGridAssist.SelectedCellBorderBrush="Transparent"
+                ItemsSource="{Binding TransactionsCollection}" 
+                DataContext="{Binding Mode=OneWay}" 
+                AutoGenerateColumns="False" 
+                RowDetailsVisibilityMode="Visible">
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                    Header="TransactionID"
-                    Visibility="Hidden"
-                    Binding="{Binding TransactionId}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
+                        Header="TransactionID"
+                        Visibility="Hidden"
+                        Binding="{Binding Mobile}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn
-                    Header="طرف حساب"
-                    Binding="{Binding FullName}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
+                        Header="طرف حساب"
+                        Binding="{Binding FullName}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn
-                    Header="مبلغ"
-                    Binding="{Binding Amount}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
+                        Header="مبلغ"
+                        Binding="{Binding Amount}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn
-                    Header="تاریخ"
-                    Binding="{Binding TrDateTime}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
+                        Header="تاریخ"
+                        Binding="{Binding TrDateTime}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn
-                    Header="توضیحات"
-                    Binding="{Binding Description}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
+                        Header="توضیحات"
+                        Binding="{Binding Description}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
@@ -152,11 +160,14 @@
                 Content="ویرایش"
                 Margin="0, 0, 5, 0"/>
             <Button
-                Content="حذف"
-                Margin="5, 0, 5, 0"/>
-            <Button
                 Content="تازه سازی"
+                Command="{Binding RefreshTransactionsGrid}"
                 Margin="5, 0, 0, 0"/>
+            <Button
+                Content="حذف"
+                Background="#B3005E"
+                Margin="5, 0, 5, 0"/>
+
         </StackPanel>
     </Grid>
 </UserControl>

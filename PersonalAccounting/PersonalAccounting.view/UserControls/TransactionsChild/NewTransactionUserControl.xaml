@@ -57,9 +57,10 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <RadioButton Grid.Column="0"
+                    <RadioButton 
+                        Grid.Column="0"
                         Content="پرداخت"
-                        IsChecked="True"
+                        IsChecked="{Binding Payment, Mode=TwoWay}"
                         GroupName="TrType"
                         Margin="0, 0, 0, 0"
                         Style="{DynamicResource RadioButtonStyle}"/>
@@ -67,13 +68,13 @@
                         Grid.Column="1"
                         Content="دریافت"
                         GroupName="TrType"
+                        IsChecked="{Binding Receive, Mode=TwoWay}"
                         Style="{DynamicResource RadioButtonStyle}"/>
                 </Grid>
 
                 <ComboBox 
                     SelectedItem="{Binding SelectedPerson, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    SelectedIndex="{Binding SelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    ItemsSource="{Binding Path=Persons}"
+                    ItemsSource="{Binding Persons}"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     materialDesign:TextFieldAssist.TextFieldCornerRadius="5"
                     materialDesign:TextFieldAssist.UnderlineBrush="#00ADB5"
@@ -90,7 +91,7 @@
                     Height="42">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Margin="10 0 0 0" Text="{Binding}" />
+                            <TextBlock Margin="10 0 0 0" Text="{Binding FullName}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -100,18 +101,20 @@
                     materialDesign:TextFieldAssist.TrailingIcon="Dollar"
                     materialDesign:HintAssist.Hint="مبلغ"
                     Padding="5"
-                    Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox
                     FlowDirection="RightToLeft"
                     AcceptsReturn="True"
-                    VerticalScrollBarVisibility="Auto"
                     MaxLength="800"
                     Height="150"
                     Margin="0,10,0,10"
                     Padding="5"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto"
+                    materialDesign:TextFieldAssist.HasTrailingIcon="True"
                     materialDesign:TextFieldAssist.TrailingIcon="Text"
                     materialDesign:HintAssist.Hint="توضیحات"
-                    Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <StackPanel
                     Margin="0,15,0,0"
@@ -121,16 +124,8 @@
                     <Button
                         Margin="0, 0, 5, 0"
                         Width="120"
-                        materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding IsTaskInProgress, UpdateSourceTrigger=PropertyChanged}"
-                        Command="{Binding CreateCustomerCommand}">
-                        ایجاد
-                    </Button>
-                    <Button
-                        Margin="5, 0, 0, 0"
-                        Width="120"
-                        materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding IsTaskInProgress, UpdateSourceTrigger=PropertyChanged}"
-                        Command="{Binding CreateCustomerCommand}">
-                        ایجاد / جدید
+                        Command="{Binding CreateTransaction}">
+                        افزودن
                     </Button>
                 </StackPanel>
 

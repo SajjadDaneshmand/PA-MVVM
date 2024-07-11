@@ -57,13 +57,14 @@
                 IsReadOnly="True"
                 AutoGenerateColumns="False"
                 HorizontalAlignment="Stretch"
+                SelectedItem="{Binding SelectedRow}"
                 materialDesign:DataGridAssist.SelectedCellBorderBrush="Transparent"
                 ItemsSource="{Binding PersonsCollection}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                     Header="ID"
                     Visibility="Hidden"
-                    Binding="{Binding CustomerId}">
+                    Binding="{Binding CustomerID}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -119,11 +120,14 @@
                 Content="ویرایش"
                 Margin="0, 0, 5, 0"/>
             <Button
-                Content="حذف"
-                Margin="5, 0, 5, 0"/>
-            <Button
                 Content="تازه سازی"
+                Command="{Binding RefreshPersonsGridCommand}"
                 Margin="5, 0, 0, 0"/>
+            <Button
+                Content="حذف"
+                Background="#B3005E"
+                Command="{Binding DeleteRow}"
+                Margin="5, 0, 5, 0"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -70,6 +70,8 @@
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\Commands\CreateCustomerAndNavigateToPersonsListCommand.cs" />
     <Compile Include="Commands\Commands\CreateCustomerCommand.cs" />
+    <Compile Include="Commands\Commands\CreateTransactionCommand.cs" />
+    <Compile Include="Commands\Commands\DeleteCustomerCommand.cs" />
     <Compile Include="Commands\Commands\NavigateToHomeCommand.cs" />
     <Compile Include="Commands\Commands\NavigateToNewPersonCommand.cs" />
     <Compile Include="Commands\Commands\NavigateToNewTransactionCommand.cs" />
@@ -79,9 +81,13 @@
     <Compile Include="Commands\Commands\NavigateToSettingsCommand.cs" />
     <Compile Include="Commands\Commands\NavigateToTransactionsCommand.cs" />
     <Compile Include="Commands\Commands\NavigateToTransactionsListCommand.cs" />
+    <Compile Include="Commands\Commands\RefreshPersonsGridCommand.cs" />
+    <Compile Include="Commands\Commands\RefreshTransactionsGridCommand.cs" />
     <Compile Include="Commands\Commands\TestCommand.cs" />
     <Compile Include="Commands\ICommands\ICreateCustomerAndNavigateToPersonsListCommand.cs" />
     <Compile Include="Commands\ICommands\ICreateCustomerCommand.cs" />
+    <Compile Include="Commands\ICommands\ICreateTransactionCommand.cs" />
+    <Compile Include="Commands\ICommands\IDeleteCustomerCommand.cs" />
     <Compile Include="Commands\ICommands\INavigateToHomeCommand.cs" />
     <Compile Include="Commands\ICommands\INavigateToNewPersonCommand.cs" />
     <Compile Include="Commands\ICommands\INavigateToNewTransactionCommand.cs" />
@@ -91,7 +97,10 @@
     <Compile Include="Commands\ICommands\INavigateToSettingsCommand.cs" />
     <Compile Include="Commands\ICommands\INavigateToTransactionsCommand.cs" />
     <Compile Include="Commands\ICommands\INavigateToTransactionsListCommand.cs" />
+    <Compile Include="Commands\ICommands\IRefreshPersonsGridCommand.cs" />
+    <Compile Include="Commands\ICommands\IRefreshTransactionsGridCommand.cs" />
     <Compile Include="Commands\ICommands\ITestCommand.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="ContainerConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\INavigationService.cs" />
@@ -120,11 +129,11 @@
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Stores\PersonsTabNavigationStore.cs" />
     <Compile Include="Stores\TransactionsTabNavigationStore.cs" />
+    <Compile Include="Utilities\AccountingRegistry.cs" />
+    <Compile Include="Utilities\IAccountingRegistry.cs" />
     <Compile Include="Utilities\Validators.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\IBaseViewModel.cs" />
-    <Compile Include="ViewModels\IModels\IPersonModel.cs" />
-    <Compile Include="ViewModels\IModels\ITransactionModel.cs" />
     <Compile Include="ViewModels\IViewModels\IHomeViewModel.cs" />
     <Compile Include="ViewModels\IViewModels\IMainWindowViewModel.cs" />
     <Compile Include="ViewModels\IViewModels\INewPersonViewModel.cs" />
@@ -135,8 +144,6 @@
     <Compile Include="ViewModels\IViewModels\ISettingsViewModel.cs" />
     <Compile Include="ViewModels\IViewModels\ITransactionsListViewModel.cs" />
     <Compile Include="ViewModels\IViewModels\ITransactionsViewModel.cs" />
-    <Compile Include="ViewModels\Models\PersonModel.cs" />
-    <Compile Include="ViewModels\Models\TransactionModel.cs" />
     <Compile Include="ViewModels\ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModels\NewPersonViewModel.cs" />

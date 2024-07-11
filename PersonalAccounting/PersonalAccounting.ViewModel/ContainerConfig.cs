@@ -8,6 +8,7 @@ using PersonalAccounting.ViewModel.ViewModels;
 using PersonalAccounting.ViewModel.Services;
 using PersonalAccounting.ViewModel.Services.NavigationServices;
 using PersonalAccounting.ViewModel.Services.NavigationInterfaces;
+using static PersonalAccounting.ViewModel.Constants;
 using PersonalAccounting.ViewModel.Stores;
 using PersonalAccounting.ViewModel.Commands.Commands;
 using PersonalAccounting.ViewModel.Commands.ICommands;
@@ -15,6 +16,7 @@ using System.Data.SqlClient;
 using PersonalAccounting.Model.Repositories;
 using PersonalAccounting.Model.Services;
 using PersonalAccounting.Model.Context;
+using PersonalAccounting.ViewModel.Utilities;
 
 namespace PersonalAccounting.ViewModel
 {
@@ -41,8 +43,22 @@ namespace PersonalAccounting.ViewModel
                         var persons = db.CustomersRepository.GetAllCustomers();
                         e.Instance.PersonsCollection = persons;
                     }
+
+                    var deleteCustomerCommand = e.Context.Resolve<IDeleteCustomerCommand>();
+
+                    e.Instance.DeleteRow = deleteCustomerCommand;
+
+                    if (deleteCustomerCommand is DeleteCustomerCommand command)
+                    {
+                        command.PersonsListViewModelInstance = e.Instance;
+                        e.Instance.PropertyChanged += command.OnViewModelPropertyChanged;
+                    }
+
+                    
+
+
                 }
-                );
+                ).SingleInstance();
             builder.RegisterType<NewTransactionViewModel>().As<INewTransactionViewModel>().SingleInstance();
             builder.RegisterType<TransactionsListViewModel>().As<ITransactionsListViewModel>().SingleInstance();
 
@@ -56,13 +72,16 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<NavigateToPersonsListCommand>().As<INavigateToPersonsListCommand>().SingleInstance();
             builder.RegisterType<NavigateToNewTransactionCommand>().As<INavigateToNewTransactionCommand>().SingleInstance();
             builder.RegisterType<NavigateToTransactionsListCommand>().As<INavigateToTransactionsListCommand>().SingleInstance();
+            builder.RegisterType<DeleteCustomerCommand>().As<IDeleteCustomerCommand>();
             builder.RegisterType<CreateCustomerAndNavigateToPersonsListCommand>().As<ICreateCustomerAndNavigateToPersonsListCommand>().OnActivated(
-                e => 
+                e =>
                 {
                     var currentViewModel = e.Context.Resolve<INewPersonViewModel>();
                     var personsListNavigationService = e.Context.Resolve<IPersonsListNavigationService>();
+                    var newTransactionViewModel = e.Context.Resolve<INewTransactionViewModel>();
                     e.Instance.NewPersonViewModelInstance = currentViewModel;
                     e.Instance.PersonsListNavigationService = personsListNavigationService;
+                    e.Instance.NewTransactionViewModelInstance = newTransactionViewModel;
 
                     currentViewModel.PropertyChanged += e.Instance.OnViewModelPropertyChanged;
 
@@ -72,11 +91,37 @@ namespace PersonalAccounting.ViewModel
                 {
                     // We can perform any logic here.
                     var currentViewModel = e.Context.Resolve<INewPersonViewModel>();
+                    var personsListViewModel = e.Context.Resolve<IPersonsListViewModel>();
+                    var newTransactionViewModel = e.Context.Resolve<INewTransactionViewModel>();
                     e.Instance.NewPersonViewModelInstance = currentViewModel;
+                    e.Instance.PersonsListViewModelInstance = personsListViewModel;
+                    e.Instance.NewTransactionViewModelInstance = newTransactionViewModel;
 
                     currentViewModel.PropertyChanged += e.Instance.OnViewModelPropertyChanged;
                 }
                 );
+            builder.RegisterType<CreateTransactionCommand>().As<ICreateTransactionCommand>().OnActivated(
+                e =>
+                {
+                    var currentViewModel = e.Context.Resolve<INewTransactionViewModel>();
+                    e.Instance.NewTransactionViewModel = currentViewModel;
+
+                    currentViewModel.PropertyChanged += e.Instance.OnViewModelPropertyChanged;
+                });
+            builder.RegisterType<RefreshPersonsGridCommand>().As<IRefreshPersonsGridCommand>().OnActivated(
+                e =>
+                {
+                    var personsListViewModel = e.Context.Resolve<IPersonsListViewModel>();
+                    e.Instance.PersonsListViewModel = personsListViewModel;
+                }
+                );
+            builder.RegisterType<RefreshTransactionsGridCommand>().As<IRefreshTransactionsGridCommand>().OnActivated(
+
+                e =>
+                {
+                    var transactionsListViewModel = e.Context.Resolve<ITransactionsListViewModel>();
+                    e.Instance.TransactionsListViewModel = transactionsListViewModel;
+                });
 
             // Register Navigation Services
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
@@ -94,6 +139,9 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<NavigationStore>().As<INavigationStore>().SingleInstance();
             builder.RegisterType<PersonsTabNavigationStore>().As<IPersonsTabNavigationStore>().SingleInstance();
             builder.RegisterType<TransactionsTabNavigationStore>().As<ITransactionsTabNavigationStore>().SingleInstance();
+
+            // Register Utilities
+            builder.RegisterType<AccountingRegistry>().As<IAccountingRegistry>().SingleInstance();
 
 
             // Register Model Repositories

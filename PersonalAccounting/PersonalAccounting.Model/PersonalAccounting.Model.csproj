@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\IUnitOfwork.cs" />
     <Compile Include="Context\UnitOfWork.cs" />
     <Compile Include="Model\AccountingTypes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -75,9 +76,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\PersonIdModel.cs" />
     <Compile Include="Model\Transactions.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\TransactionsModel.cs" />
     <Compile Include="Model\User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -1,11 +1,15 @@
 ﻿using Autofac; 
 using PersonalAccounting.ViewModel.ViewModels;
 using PersonalAccounting.ViewModel.ViewModels.IViewModels;
+using static PersonalAccounting.ViewModel.Constants;
 using PersonalAccounting.ViewModel.Stores;
 using PersonalAccounting.ViewModel;
 using PersonalAccounting.view.Views;
 using System.Windows;
 using PersonalAccounting.ViewModel.Services.NavigationInterfaces;
+using PersonalAccounting.ViewModel.Utilities;
+using System;
+using System.Runtime.InteropServices.ComTypes;
 
 
 namespace PersonalAccounting.view
@@ -43,6 +47,20 @@ namespace PersonalAccounting.view
 
             var transactionsListNavigationService = _container.Resolve<ITransactionsListNavigationService>();
             transactionsListNavigationService.Navigate();
+
+            var accountingRegistry = _container.Resolve<IAccountingRegistry>();
+
+            if (!accountingRegistry.IsRegistryExist)
+            {
+                var today = DateTime.Today.ToString("yyyy/MM/dd");
+                accountingRegistry.Write(START_DATE_REGISTRY_KEY, today);
+            }
+
+            var transactionListViewModel = _container.Resolve<ITransactionsListViewModel>();
+
+            transactionListViewModel.StartDate = accountingRegistry.Get(START_DATE_REGISTRY_KEY);
+
+
 
         }
     }

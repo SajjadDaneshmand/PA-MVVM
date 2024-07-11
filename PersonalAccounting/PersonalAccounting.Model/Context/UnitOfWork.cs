@@ -6,7 +6,7 @@ using System;
 
 namespace PersonalAccounting.Model.Context
 {
-    public class UnitOfWork: IDisposable
+    public class UnitOfWork: IUnitOfwork, IDisposable
     {
         private Accounting_DBEntities _db = new Accounting_DBEntities();
 
@@ -18,7 +18,7 @@ namespace PersonalAccounting.Model.Context
         public ITransactionsRepository TransactionsRepository => _transactionsRepository ?? (_transactionsRepository= new TransactionsRepository(_db));
         public IUserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(_db));
 
-        public void Save()
+        public bool Save()
         {
             using (var transaction = _db.Database.BeginTransaction())
             {
@@ -27,11 +27,13 @@ namespace PersonalAccounting.Model.Context
                     _db.SaveChanges();
                     transaction.Commit();
                     Console.WriteLine("Changes commited successfully");
+                    return true;
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
                     Console.WriteLine($"Error: {ex.Message}");
+                    return false;
                 }
             }
         }
