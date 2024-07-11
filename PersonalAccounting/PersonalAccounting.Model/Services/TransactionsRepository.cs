@@ -1,6 +1,8 @@
 ﻿using PersonalAccounting.Model.Model;
 using PersonalAccounting.Model.Repositories;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using static PersonalAccounting.Model.Utilities.Constants;
@@ -98,6 +100,31 @@ namespace PersonalAccounting.Model.Services
             catch
             {
                 return false;
+            }
+        }
+
+        public ObservableCollection<TransactionsModel> GetTransactionsList()
+        {
+            try
+            {
+                var data = _db.Transactions
+                    .Join(_db.Customers,
+                    t => t.CustomerID,
+                    c => c.CustomerID,
+                    (t, c) => new TransactionsModel
+                    {
+                        TransactionId = t.ID,
+                        FullName = c.FullName,
+                        Amount = (Int64)t.Amount,
+                        TrDateTime = t.Date,
+                        Description = t.Description,
+                    }
+                    );
+                return new ObservableCollection<TransactionsModel>(data);
+            }
+            catch
+            {
+                return new ObservableCollection<TransactionsModel>();
             }
         }
     }

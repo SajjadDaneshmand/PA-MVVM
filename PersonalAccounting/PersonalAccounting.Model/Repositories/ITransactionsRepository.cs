@@ -1,5 +1,6 @@
 ﻿using PersonalAccounting.Model.Model;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 
 namespace PersonalAccounting.Model.Repositories
@@ -15,5 +16,9 @@ namespace PersonalAccounting.Model.Repositories
         bool DeleteTransaction(int id);
         List<Transactions> GetLargestPaymentTransactions();
         List<Transactions> GetLargestReceiveTransactions();
+
+        // TransactionListModel method
+        ObservableCollection<TransactionsModel> GetTransactionsList();
+
     }
 }
