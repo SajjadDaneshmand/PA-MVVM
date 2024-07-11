@@ -16,6 +16,8 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
     public class CreateCustomerCommand : BaseCommand, ICreateCustomerCommand
     {
         public INewPersonViewModel NewPersonViewModelInstance;
+        public IPersonsListViewModel PersonsListViewModelInstance;
+        public INewTransactionViewModel NewTransactionViewModelInstance;
 
         public override void Execute(object parameter)
         {
@@ -32,10 +34,13 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
                 db.CustomersRepository.InsertCustomer(customer);
                 db.Save();
             }
-            NewPersonViewModelInstance.FullName = "";
-            NewPersonViewModelInstance.PhoneNumber = "";
-            NewPersonViewModelInstance.Email = "";
-            NewPersonViewModelInstance.Address = "";
+            NewPersonViewModelInstance.FullName = string.Empty;
+            NewPersonViewModelInstance.PhoneNumber = string.Empty;
+            NewPersonViewModelInstance.Email = string.Empty;
+            NewPersonViewModelInstance.Address = string.Empty;
+
+            NewTransactionViewModelInstance.UpdateComboBox();
+            PersonsListViewModelInstance.RefreshGrid();
         }
 
         public void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
