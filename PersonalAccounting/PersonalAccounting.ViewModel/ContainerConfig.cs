@@ -147,6 +147,9 @@ namespace PersonalAccounting.ViewModel
             // Register Model Repositories
             builder.RegisterType<CustomersRepository>().As<ICustomersRepository>().SingleInstance();
 
+            // Register Context
+            builder.RegisterType<UnitOfWork>().As<IUnitOfwork>().SingleInstance();
+
             return builder.Build();
         }
     }
