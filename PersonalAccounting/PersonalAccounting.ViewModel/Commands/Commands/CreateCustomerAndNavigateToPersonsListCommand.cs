@@ -19,6 +19,13 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
 
         public INewPersonViewModel NewPersonViewModelInstance;
         public IPersonsListNavigationService PersonsListNavigationService;
+        public IPersonsListViewModel PersonsListViewModel;
+        public INewTransactionViewModel NewTransactionViewModelInstance;
+
+        public CreateCustomerAndNavigateToPersonsListCommand(IPersonsListViewModel personsListViewModel)
+        {
+            PersonsListViewModel = personsListViewModel;
+        }
 
         public override void Execute(object parameter)
         {
@@ -39,6 +46,8 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
             NewPersonViewModelInstance.PhoneNumber = "";
             NewPersonViewModelInstance.Email = "";
             NewPersonViewModelInstance.Address = "";
+            PersonsListViewModel.RefreshGrid();
+            NewTransactionViewModelInstance.UpdateComboBox();
             PersonsListNavigationService.Navigate();
 
         }
