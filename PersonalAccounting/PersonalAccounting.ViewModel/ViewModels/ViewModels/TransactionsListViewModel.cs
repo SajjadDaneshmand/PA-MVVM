@@ -21,10 +21,10 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
         private string _startDate;
         private string _selectedRow;
 
+
         public TransactionsListViewModel(IRefreshTransactionsGridCommand refreshTransactionsGridCommand)
         {
             RefreshTransactionsGrid = refreshTransactionsGridCommand;
-
         }
 
         public IRefreshTransactionsGridCommand RefreshTransactionsGrid { get; set; }
@@ -41,7 +41,7 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
             set
             {
                 _selectedRow = value;
-            } 
+            }
         }
 
 
@@ -60,11 +60,12 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 
         public void RefreshTrDataGrid()
         {
-            using (var db = new UnitOfWork())
+            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
             {
-                var data = db.TransactionsRepository.GetTransactionsList();
+                var data = _db.TransactionsRepository.GetTransactionsList();
                 SetField(ref _transactionsCollection, data, nameof(TransactionsCollection));
             }
+
         }
     }
 }

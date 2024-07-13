@@ -10,6 +10,8 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
+using static PersonalAccounting.ViewModel.Constants;
+
 namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 {
     public class NewTransactionViewModel : BaseViewModel, INewTransactionViewModel
@@ -27,7 +29,7 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
             CreateTransaction = createTransactionCommand;
         }
 
-        public ICreateTransactionCommand CreateTransaction {  get; set; }
+        public ICreateTransactionCommand CreateTransaction { get; set; }
 
         public bool Receive
         {
@@ -93,10 +95,11 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 
         public void UpdateComboBox()
         {
-            using (var db = new UnitOfWork())
+            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
             {
-                Persons = db.CustomersRepository.GetFullNameId();
+                Persons = _db.CustomersRepository.GetFullNameId();
             }
+
         }
     }
 }

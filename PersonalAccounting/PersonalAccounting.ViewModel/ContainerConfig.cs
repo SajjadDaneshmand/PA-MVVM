@@ -17,6 +17,7 @@ using PersonalAccounting.Model.Repositories;
 using PersonalAccounting.Model.Services;
 using PersonalAccounting.Model.Context;
 using PersonalAccounting.ViewModel.Utilities;
+using PersonalAccounting.Model.Model;
 
 namespace PersonalAccounting.ViewModel
 {
@@ -38,11 +39,12 @@ namespace PersonalAccounting.ViewModel
             builder.RegisterType<PersonsListViewModel>().As<IPersonsListViewModel>().OnActivated(
                 e =>
                 {
-                    using (var db = new UnitOfWork())
+                    using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
                     {
-                        var persons = db.CustomersRepository.GetAllCustomers();
+                        var persons = _db.CustomersRepository.GetAllCustomers();
                         e.Instance.PersonsCollection = persons;
                     }
+
 
                     var deleteCustomerCommand = e.Context.Resolve<IDeleteCustomerCommand>();
 
@@ -54,7 +56,7 @@ namespace PersonalAccounting.ViewModel
                         e.Instance.PropertyChanged += command.OnViewModelPropertyChanged;
                     }
 
-                    
+
 
 
                 }
@@ -146,9 +148,6 @@ namespace PersonalAccounting.ViewModel
 
             // Register Model Repositories
             builder.RegisterType<CustomersRepository>().As<ICustomersRepository>().SingleInstance();
-
-            // Register Context
-            builder.RegisterType<UnitOfWork>().As<IUnitOfwork>().SingleInstance();
 
             return builder.Build();
         }

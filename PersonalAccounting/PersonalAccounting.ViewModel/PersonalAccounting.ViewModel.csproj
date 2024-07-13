@@ -130,6 +130,7 @@
     <Compile Include="Stores\PersonsTabNavigationStore.cs" />
     <Compile Include="Stores\TransactionsTabNavigationStore.cs" />
     <Compile Include="Utilities\AccountingRegistry.cs" />
+    <Compile Include="Utilities\ConnectionStringBuilder.cs" />
     <Compile Include="Utilities\IAccountingRegistry.cs" />
     <Compile Include="Utilities\Validators.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

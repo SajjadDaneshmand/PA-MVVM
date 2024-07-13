@@ -15,11 +15,14 @@ namespace PersonalAccounting.Model.Model
     
     public partial class Accounting_DBEntities : DbContext
     {
-        public Accounting_DBEntities()
-            : base("name=Accounting_DBEntities")
+        //public Accounting_DBEntities()
+        //    : base("name=Accounting_DBEntities")
+        //{
+        //}
+        public Accounting_DBEntities(string connectionString) : base(connectionString)
         {
+            var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
-    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

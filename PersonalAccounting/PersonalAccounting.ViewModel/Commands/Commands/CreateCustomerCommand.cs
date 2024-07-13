@@ -11,6 +11,8 @@ using PersonalAccounting.Model.Repositories;
 using PersonalAccounting.Model.Model;
 using PersonalAccounting.Model.Context;
 
+using static PersonalAccounting.ViewModel.Constants;
+
 namespace PersonalAccounting.ViewModel.Commands.Commands
 {
     public class CreateCustomerCommand : BaseCommand, ICreateCustomerCommand
@@ -29,11 +31,19 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
                 Address = NewPersonViewModelInstance.Address?.Trim()
             };
 
-            using (var db = new UnitOfWork())
+            try
             {
-                db.CustomersRepository.InsertCustomer(customer);
-                db.Save();
+                using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
+                {
+                    _db.CustomersRepository.InsertCustomer(customer);
+                    _db.Save();
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
             NewPersonViewModelInstance.FullName = string.Empty;
             NewPersonViewModelInstance.PhoneNumber = string.Empty;
             NewPersonViewModelInstance.Email = string.Empty;

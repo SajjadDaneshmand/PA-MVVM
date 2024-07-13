@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using static PersonalAccounting.ViewModel.Constants;
+
 namespace PersonalAccounting.ViewModel.Commands.Commands
 {
     public class CreateTransactionCommand : BaseCommand, ICreateTransactionCommand
@@ -17,20 +19,24 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
 
         public override void Execute(object parameter)
         {
-            using (var db = new UnitOfWork())
-            {
 
-                Transactions transactions = new Transactions()
-                {
-                    TrType = NewTransactionViewModel.TrType,
-                    CustomerID = NewTransactionViewModel.SelectedPerson.Id,
-                    Amount = Int64.Parse(NewTransactionViewModel.Amount),
-                    Description = NewTransactionViewModel.Description,
-                    Date = DateTime.Now,
-                };
-                db.TransactionsRepository.InsertTransaction(transactions);
-                db.Save();
+
+            Transactions transactions = new Transactions()
+            {
+                TrType = NewTransactionViewModel.TrType,
+                CustomerID = NewTransactionViewModel.SelectedPerson.Id,
+                Amount = Int64.Parse(NewTransactionViewModel.Amount),
+                Description = NewTransactionViewModel.Description,
+                Date = DateTime.Now,
+            };
+
+            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
+            {
+                _db.TransactionsRepository.InsertTransaction(transactions);
+                _db.Save();
             }
+
+
 
             NewTransactionViewModel.SelectedPerson = null;
             NewTransactionViewModel.Amount = string.Empty;
@@ -41,7 +47,7 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
         {
             if (NewTransactionViewModel.SelectedPerson == null)
                 return false;
-            if (NewTransactionViewModel.Amount == null || NewTransactionViewModel.Amount.StartsWith("0"))
+            if (string.IsNullOrEmpty(NewTransactionViewModel.Amount) || NewTransactionViewModel.Amount.StartsWith("0"))
                 return false;
 
             foreach (char c in NewTransactionViewModel.Amount)

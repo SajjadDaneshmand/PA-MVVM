@@ -22,7 +22,9 @@ namespace PersonalAccounting.Model.Services
         {
             try
             {
+
                 _db.Entry(customer).State = EntityState.Deleted;
+                //_db.Customers.Remove(customer);
                 return true;
             }
             catch
@@ -36,7 +38,8 @@ namespace PersonalAccounting.Model.Services
             Customers customer = GetCustomerById(customerId);
             try
             {
-                _db.Entry(customer).State = EntityState.Deleted;
+                // _db.Entry(customer).State = EntityState.Deleted;
+                DeleteCustomer(customer);
                 return true;
             }
             catch

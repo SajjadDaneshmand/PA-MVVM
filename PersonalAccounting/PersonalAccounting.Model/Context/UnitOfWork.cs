@@ -8,7 +8,12 @@ namespace PersonalAccounting.Model.Context
 {
     public class UnitOfWork: IUnitOfwork, IDisposable
     {
-        private Accounting_DBEntities _db = new Accounting_DBEntities();
+        private readonly Accounting_DBEntities _db;
+
+        public UnitOfWork(string connectionString)
+        {
+            _db = new Accounting_DBEntities(connectionString);
+        }
 
         private ICustomersRepository _customersRepository;
         private ITransactionsRepository _transactionsRepository;

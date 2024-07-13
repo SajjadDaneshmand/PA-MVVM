@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using PersonalAccounting.ViewModel.ViewModels.ViewModels;
 using PersonalAccounting.ViewModel.Services.NavigationInterfaces;
 
+using static PersonalAccounting.ViewModel.Constants;
+
 namespace PersonalAccounting.ViewModel.Commands.Commands
 {
     public class CreateCustomerAndNavigateToPersonsListCommand : BaseCommand, ICreateCustomerAndNavigateToPersonsListCommand
@@ -37,11 +39,13 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
                 Address = NewPersonViewModelInstance.Address?.Trim()
             };
 
-            using (var db = new UnitOfWork())
+            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
             {
-                db.CustomersRepository.InsertCustomer(customer);
-                db.Save();
+                _db.CustomersRepository.InsertCustomer(customer);
+                _db.Save();
             }
+
+
             NewPersonViewModelInstance.FullName = "";
             NewPersonViewModelInstance.PhoneNumber = "";
             NewPersonViewModelInstance.Email = "";

@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using static PersonalAccounting.ViewModel.Constants;
+
 namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 {
     public class PersonsListViewModel : BaseViewModel, IPersonsListViewModel
@@ -23,7 +25,7 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
             RefreshPersonsGridCommand = refreshPersonsGridCommand;
         }
 
-        public IRefreshPersonsGridCommand RefreshPersonsGridCommand {  get; set; }
+        public IRefreshPersonsGridCommand RefreshPersonsGridCommand { get; set; }
 
         public Customers SelectedRow
         {
@@ -56,19 +58,22 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 
         public void UpdatePersonList()
         {
-            using (var db = new UnitOfWork())
+            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
             {
-                PersonsCollection = db.CustomersRepository.FilterCustomersByNameMobile(SearchInput);
+                PersonsCollection = _db.CustomersRepository.FilterCustomersByNameMobile(SearchInput);
             }
+
         }
 
         public void RefreshGrid()
         {
-            using (var db = new UnitOfWork())
+            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
             {
-                PersonsCollection = db.CustomersRepository.GetAllCustomers();
+                PersonsCollection = _db.CustomersRepository.GetAllCustomers();
                 SearchInput = string.Empty;
             }
+
+
         }
     }
 }
