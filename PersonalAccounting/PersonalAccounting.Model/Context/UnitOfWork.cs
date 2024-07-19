@@ -2,6 +2,7 @@
 using PersonalAccounting.Model.Repositories;
 using PersonalAccounting.Model.Services;
 using System;
+using System.Data.Entity;
 
 
 namespace PersonalAccounting.Model.Context
@@ -46,6 +47,11 @@ namespace PersonalAccounting.Model.Context
         public void Dispose()
         {
             _db?.Dispose();
+        }
+
+        public DbContextTransaction BeginTransaction()
+        {
+            return _db.Database.BeginTransaction();
         }
     }
 }

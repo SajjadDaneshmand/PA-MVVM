@@ -2,6 +2,7 @@
 using PersonalAccounting.Model.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace PersonalAccounting.Model.Context
         ICustomersRepository CustomersRepository { get; }
         ITransactionsRepository TransactionsRepository { get; }
         IUserRepository UserRepository { get; }
+        DbContextTransaction BeginTransaction();
         bool Save();
     }
 }
