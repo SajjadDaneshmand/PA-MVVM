@@ -22,10 +22,19 @@ namespace PersonalAccounting.Model.Services
         {
             try
             {
+                // Find the customer by its key (assuming CustomerID is the key)
+                var customerToDelete = _db.Customers.Find(customer.CustomerID);
 
-                _db.Entry(customer).State = EntityState.Deleted;
-                //_db.Customers.Remove(customer);
-                return true;
+                // Check if the customer was found
+                if (customerToDelete != null)
+                {
+                    _db.Entry(customerToDelete).State = EntityState.Deleted;
+                    return true;
+                }
+                else
+                {
+                    return false; // Customer not found
+                }
             }
             catch
             {
