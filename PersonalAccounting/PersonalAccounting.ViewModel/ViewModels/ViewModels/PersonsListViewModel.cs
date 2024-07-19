@@ -16,16 +16,19 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 {
     public class PersonsListViewModel : BaseViewModel, IPersonsListViewModel
     {
+        private readonly IUnitOfwork _unitOfwork;
         private string _searchInput;
         private ObservableCollection<Customers> _personCollection;
         private Customers _selectedRow;
 
-        public PersonsListViewModel(IRefreshPersonsGridCommand refreshPersonsGridCommand)
+        public PersonsListViewModel(IRefreshPersonsGridCommand refreshPersonsGridCommand, IUnitOfwork unitOfwork)
         {
             RefreshPersonsGridCommand = refreshPersonsGridCommand;
+            _unitOfwork = unitOfwork;
         }
 
         public IRefreshPersonsGridCommand RefreshPersonsGridCommand { get; set; }
+        public IUnitOfwork UnitOfwork => _unitOfwork;
 
         public Customers SelectedRow
         {
@@ -58,21 +61,22 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 
         public void UpdatePersonList()
         {
-            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
+            using (var dbContextTransaction = UnitOfwork.BeginTransaction())
             {
-                PersonsCollection = _db.CustomersRepository.FilterCustomersByNameMobile(SearchInput);
+                PersonsCollection = UnitOfwork.CustomersRepository.FilterCustomersByNameMobile(SearchInput);
+                dbContextTransaction.Commit();
             }
 
         }
 
         public void RefreshGrid()
         {
-            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
+            using (var dbContextTransaction = UnitOfwork.BeginTransaction())
             {
-                PersonsCollection = _db.CustomersRepository.GetAllCustomers();
-                SearchInput = string.Empty;
+                PersonsCollection = UnitOfwork.CustomersRepository.GetAllCustomers();
+                dbContextTransaction.Commit();
             }
-
+            SearchInput = string.Empty;
 
         }
     }

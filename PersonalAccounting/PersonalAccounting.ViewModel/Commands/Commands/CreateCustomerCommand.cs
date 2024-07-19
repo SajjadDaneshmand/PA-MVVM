@@ -17,6 +17,15 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
 {
     public class CreateCustomerCommand : BaseCommand, ICreateCustomerCommand
     {
+        private readonly IUnitOfwork _unitOfwork;
+
+        public CreateCustomerCommand(IUnitOfwork unitOfwork)
+        {
+            _unitOfwork = unitOfwork;
+        }
+
+        public IUnitOfwork UnitOfWork => _unitOfwork;
+
         public INewPersonViewModel NewPersonViewModelInstance;
         public IPersonsListViewModel PersonsListViewModelInstance;
         public INewTransactionViewModel NewTransactionViewModelInstance;
@@ -33,10 +42,11 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
 
             try
             {
-                using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
+                using (var dbContextTransaction = UnitOfWork.BeginTransaction())
                 {
-                    _db.CustomersRepository.InsertCustomer(customer);
-                    _db.Save();
+                    UnitOfWork.CustomersRepository.InsertCustomer(customer);
+                    UnitOfWork.Save();
+                    dbContextTransaction.Commit();
                 }
             }
             catch (Exception ex)

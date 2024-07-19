@@ -17,14 +17,16 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 {
     public class TransactionsListViewModel : BaseViewModel, ITransactionsListViewModel
     {
+        private readonly IUnitOfwork _unitOfwork;
         private ObservableCollection<TransactionsModel> _transactionsCollection;
         private string _startDate;
         private string _selectedRow;
 
 
-        public TransactionsListViewModel(IRefreshTransactionsGridCommand refreshTransactionsGridCommand)
+        public TransactionsListViewModel(IRefreshTransactionsGridCommand refreshTransactionsGridCommand, IUnitOfwork unitOfwork)
         {
             RefreshTransactionsGrid = refreshTransactionsGridCommand;
+            _unitOfwork = unitOfwork;
         }
 
         public IRefreshTransactionsGridCommand RefreshTransactionsGrid { get; set; }
@@ -44,6 +46,8 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
             }
         }
 
+        public IUnitOfwork UnitOfWork => _unitOfwork;
+
 
         public ObservableCollection<TransactionsModel> TransactionsCollection
         {
@@ -60,9 +64,9 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 
         public void RefreshTrDataGrid()
         {
-            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
+            using (var dbContextTransaction = UnitOfWork.BeginTransaction())
             {
-                var data = _db.TransactionsRepository.GetTransactionsList();
+                var data = UnitOfWork.TransactionsRepository.GetTransactionsList();
                 SetField(ref _transactionsCollection, data, nameof(TransactionsCollection));
             }
 

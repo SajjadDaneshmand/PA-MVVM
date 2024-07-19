@@ -15,7 +15,15 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
 {
     public class CreateTransactionCommand : BaseCommand, ICreateTransactionCommand
     {
+        private readonly IUnitOfwork _unitOfwork;
+
+        public CreateTransactionCommand(IUnitOfwork unitOfwork)
+        {
+            _unitOfwork = unitOfwork;
+        }
+
         public INewTransactionViewModel NewTransactionViewModel;
+        public IUnitOfwork UnitOfWork => _unitOfwork;
 
         public override void Execute(object parameter)
         {
@@ -30,10 +38,11 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
                 Date = DateTime.Now,
             };
 
-            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
+            using (var dbContextTransaction = UnitOfWork.BeginTransaction())
             {
-                _db.TransactionsRepository.InsertTransaction(transactions);
-                _db.Save();
+                UnitOfWork.TransactionsRepository.InsertTransaction(transactions);
+                UnitOfWork.Save();
+                dbContextTransaction.Commit();
             }
 
 

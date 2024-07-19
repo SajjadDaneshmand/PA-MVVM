@@ -16,6 +16,7 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 {
     public class NewTransactionViewModel : BaseViewModel, INewTransactionViewModel
     {
+        private readonly IUnitOfwork _unitOfwork;
         private ObservableCollection<PersonIdModel> _persons;
         private PersonIdModel _selectedPerson;
         private string _amount;
@@ -24,12 +25,14 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
         private bool _receive = false;
         private bool _payment = true;
 
-        public NewTransactionViewModel(ICreateTransactionCommand createTransactionCommand)
+        public NewTransactionViewModel(ICreateTransactionCommand createTransactionCommand, IUnitOfwork unitOfwork)
         {
             CreateTransaction = createTransactionCommand;
+            _unitOfwork = unitOfwork;
         }
 
         public ICreateTransactionCommand CreateTransaction { get; set; }
+        public IUnitOfwork UnitOfWork => _unitOfwork;
 
         public bool Receive
         {
@@ -95,9 +98,10 @@ namespace PersonalAccounting.ViewModel.ViewModels.ViewModels
 
         public void UpdateComboBox()
         {
-            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
+            using (var dbContextTransaction = UnitOfWork.BeginTransaction())
             {
-                Persons = _db.CustomersRepository.GetFullNameId();
+                Persons = UnitOfWork.CustomersRepository.GetFullNameId();
+                dbContextTransaction.Commit();
             }
 
         }

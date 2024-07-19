@@ -18,16 +18,21 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
 {
     public class CreateCustomerAndNavigateToPersonsListCommand : BaseCommand, ICreateCustomerAndNavigateToPersonsListCommand
     {
+        private readonly IUnitOfwork _unitOfwork;
+
+        public CreateCustomerAndNavigateToPersonsListCommand(IUnitOfwork unitOfwork, IPersonsListViewModel personsListViewModel)
+        {
+            _unitOfwork = unitOfwork;
+            PersonsListViewModel = personsListViewModel;
+        }
+
+        public IUnitOfwork UnitOfWork => _unitOfwork;
 
         public INewPersonViewModel NewPersonViewModelInstance;
         public IPersonsListNavigationService PersonsListNavigationService;
         public IPersonsListViewModel PersonsListViewModel;
         public INewTransactionViewModel NewTransactionViewModelInstance;
 
-        public CreateCustomerAndNavigateToPersonsListCommand(IPersonsListViewModel personsListViewModel)
-        {
-            PersonsListViewModel = personsListViewModel;
-        }
 
         public override void Execute(object parameter)
         {
@@ -39,17 +44,18 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
                 Address = NewPersonViewModelInstance.Address?.Trim()
             };
 
-            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
+            using (var dbContextTransaction = UnitOfWork.BeginTransaction())
             {
-                _db.CustomersRepository.InsertCustomer(customer);
-                _db.Save();
+                UnitOfWork.CustomersRepository.InsertCustomer(customer);
+                UnitOfWork.Save();
+                dbContextTransaction.Commit();
             }
 
 
-            NewPersonViewModelInstance.FullName = "";
-            NewPersonViewModelInstance.PhoneNumber = "";
-            NewPersonViewModelInstance.Email = "";
-            NewPersonViewModelInstance.Address = "";
+            NewPersonViewModelInstance.FullName = string.Empty;
+            NewPersonViewModelInstance.PhoneNumber = string.Empty;
+            NewPersonViewModelInstance.Email = string.Empty;
+            NewPersonViewModelInstance.Address = string.Empty;
             PersonsListViewModel.RefreshGrid();
             NewTransactionViewModelInstance.UpdateComboBox();
             PersonsListNavigationService.Navigate();

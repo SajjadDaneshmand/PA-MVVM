@@ -1,6 +1,5 @@
 ﻿using PersonalAccounting.Model.Context;
 using PersonalAccounting.ViewModel.Commands.ICommands;
-using PersonalAccounting.ViewModel.Utilities;
 using PersonalAccounting.ViewModel.ViewModels.IViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,15 +14,24 @@ namespace PersonalAccounting.ViewModel.Commands.Commands
 {
     public class DeleteCustomerCommand : BaseCommand, IDeleteCustomerCommand
     {
+        private readonly IUnitOfwork _unitOfwork;
+
+        public DeleteCustomerCommand(IUnitOfwork unitOfwork)
+        {
+            _unitOfwork = unitOfwork;
+        }
+
         public IPersonsListViewModel PersonsListViewModelInstance { get; set; }
+        public IUnitOfwork UnitOfWork => _unitOfwork;
 
         public override void Execute(object parameter)
         {
-            var connectionString = ConnectionStringBuilder.CreateString(".\\SQLSERVER2005", "Accounting_DB", "sa", "arta0@");
-            using (IUnitOfwork _db = new UnitOfWork(CONNECTION_STRING))
+            using (var dbContextTransaction = UnitOfWork.BeginTransaction())
             {
-                _db.CustomersRepository.DeleteCustomer(PersonsListViewModelInstance.SelectedRow);
-                _db.Save();
+                UnitOfWork.CustomersRepository.DeleteCustomer(PersonsListViewModelInstance.SelectedRow);
+                UnitOfWork.Save();
+                dbContextTransaction.Commit();
+
             }
 
             PersonsListViewModelInstance.RefreshGrid();
