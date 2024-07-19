@@ -27,6 +27,15 @@ namespace PersonalAccounting.ViewModel
         {
             var builder = new ContainerBuilder();
 
+            // Register Database model contexts
+            builder.Register(c => new Accounting_DBEntities(CONNECTION_STRING)).As<Accounting_DBEntities>().InstancePerLifetimeScope();
+            builder.RegisterType<CustomersRepository>().As<ICustomersRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<TransactionsRepository>().As<ITransactionsRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
+
+            // Register UnitOfWork
+            builder.Register(c => new UnitOfWork(CONNECTION_STRING)).As<IUnitOfwork>();
+
             // Register ViewModels and their interfaces
             builder.RegisterType<BaseViewModel>().As<IBaseViewModel>();
             builder.RegisterType<MainWindowViewModel>().As<IMainWindowViewModel>().SingleInstance();
