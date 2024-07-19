@@ -26,21 +26,15 @@ namespace PersonalAccounting.Model.Context
 
         public bool Save()
         {
-            using (var transaction = _db.Database.BeginTransaction())
+            try
             {
-                try
-                {
-                    _db.SaveChanges();
-                    transaction.Commit();
-                    Console.WriteLine("Changes commited successfully");
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    Console.WriteLine($"Error: {ex.Message}");
-                    return false;
-                }
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
             }
         }
 
